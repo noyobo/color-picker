@@ -1,0 +1,22 @@
+@prefixClass: rc-color-picker;
+
+.@{prefixClass} {
+  position: absolute;
+  top: -999px;
+  left: -999px;
+  z-index: 10;
+  background-color: #fff;
+  box-sizing: border-box;
+  * {
+    box-sizing: border-box;
+  }
+  &-open{
+    display: block;
+  }
+  &-close{
+    display: none;
+  }
+}
+
+@import 'index/Trigger';
+@import 'index/Panel';
