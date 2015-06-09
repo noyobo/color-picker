@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-var utils = require('dom-align/lib/utils')
+var utils = require('dom-align/lib/utils');
 
 function getRegion(node) {
   var offset, w, h;
@@ -20,11 +20,6 @@ function getRegion(node) {
   offset.width = w;
   offset.height = h;
   return offset;
-}
-
-function getAlign(node, align, offset = [0, 0]) {
-  var region = getRegion(node)
-  return getAlignOffset(region, align, offset)
 }
 
 function getAlignOffset(region, align, offset) {
@@ -54,8 +49,11 @@ function getAlignOffset(region, align, offset) {
   };
 }
 
-const Dom = {
-  getRegion, getAlign
+function getAlign(node, align, offset = [0, 0]) {
+  var region = getRegion(node);
+  return getAlignOffset(region, align, offset);
 }
 
-module.exports = Dom;
+module.exports = {
+  getRegion, getAlign
+};

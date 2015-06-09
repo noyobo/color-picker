@@ -11,6 +11,7 @@ class AppColorPicker extends React.Component{
 
     this.state = {
       visible: false,
+      color: '#36c',
       style: {}
     }
   }
@@ -20,9 +21,18 @@ class AppColorPicker extends React.Component{
   }
 
   render() {
+
     return (<div>
-      <Trigger onSwitch={this.handleTriggerSwitch.bind(this)}/>
-      <ColorPicker visible={this.state.visible} style={this.state.style} />
+      <Trigger
+        color={this.state.color}
+        open={this.state.visible}
+        onSwitch={this.handleTriggerSwitch.bind(this)}
+      />
+      <ColorPicker
+        color={this.state.color}
+        visible={this.state.visible} 
+        style={this.state.style} 
+      />
      </div> 
     )
   }

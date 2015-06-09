@@ -11,8 +11,9 @@ let prefixClsFn = require('./utils/prefixClsFn');
 
 function handleTriggerClick() {
   /*jshint validthis:true */
-  let offset = Dom.getAlign(React.findDOMNode(this), this.props.align, this.props.offset);
+  let offset = this.getOffset();
   this.props.onSwitch(!this.state.open, offset);
+
   this.setState({
     open: !this.state.open
   });
@@ -37,6 +38,10 @@ class Trigger extends React.Component {
     this.prefixClsFn = prefixClsFn.bind(this);
     this.handleTriggerClick = handleTriggerClick.bind(this);
     this.toggleClassName = toggleClassName.bind(this);
+  }
+
+  getOffset() {
+    return Dom.getAlign(React.findDOMNode(this), this.props.align, this.props.offset);
   }
 
   render() {

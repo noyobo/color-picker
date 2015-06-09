@@ -50,6 +50,7 @@
     "precommit"
   ],
   "dependencies": {
+    "colr": "~1.2.1",
     "dom-align": "^1.0.8"
   }
 }
