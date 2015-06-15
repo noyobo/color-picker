@@ -57,7 +57,8 @@ class ColorPicker extends React.Component {
         <Panel prefixCls={this.props.prefixCls}>
           <Board
             prefixCls={this.props.prefixCls}
-            color={this.state.color}
+            bgColor={this.state.color}
+            onChange={this.props.onChange}
            />
         </Panel>
       </div>
@@ -69,14 +70,16 @@ ColorPicker.propTypes = {
   visible: React.PropTypes.bool,
   prefixCls: React.PropTypes.string,
   color: React.PropTypes.string,
-  style: React.PropTypes.object
+  style: React.PropTypes.object,
+  onChange: React.PropTypes.func
 };
 
 ColorPicker.defaultProps = {
   visible: false,
   prefixCls: 'rc-color-picker',
   color: '#F00',
-  style: {}
+  style: {},
+  onChange: function(){}
 };
 
 module.exports = ColorPicker;

@@ -1,29 +1,37 @@
-'use strict'
+'use strict';
 
-require('rc-color-picker/assets/index.css')
-const React = require('react')
-const ColorPicker = require('rc-color-picker')
+require('rc-color-picker/assets/index.css');
+const React = require('react');
+const ColorPicker = require('rc-color-picker');
 
-const Trigger = ColorPicker.Trigger
+const Trigger = ColorPicker.Trigger;
 class AppColorPicker extends React.Component{
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       visible: false,
       color: '#36c',
       style: {}
-    }
+    };
   }
 
   handleTriggerSwitch(visible, style) {
-    this.setState({visible, style})
+    this.setState({visible, style});
+  }
+
+  onChange(colorPicker){
+    this.setState({
+      color: colorPicker.hex
+    });
+    console.log(colorPicker);
   }
 
   render() {
 
     return (<div>
       <Trigger
+        ref="trigger"
         color={this.state.color}
         open={this.state.visible}
         onSwitch={this.handleTriggerSwitch.bind(this)}
@@ -32,9 +40,10 @@ class AppColorPicker extends React.Component{
         color={this.state.color}
         visible={this.state.visible} 
         style={this.state.style} 
+        onChange={this.onChange.bind(this)}
       />
      </div> 
-    )
+    );
   }
 }
 
@@ -44,4 +53,4 @@ React.render(
     <AppColorPicker />
   </div>,
   document.getElementById('__react-content')
-)
+);

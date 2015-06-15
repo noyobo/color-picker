@@ -10,20 +10,31 @@ class Board extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      color: props.color,
-      prefixCls: props.prefixCls
+      bgColor: props.bgColor,
+      prefixCls: props.prefixCls,
+      x: props.x,
+      y: props.y
     };
 
     this.prefixClsFn = prefixClsFn.bind(this);
+
+    let events = [
+      'handleBoardMouseDown',
+      'handleBoardDrag',
+      'handleBoardDragEnd',
+      'pointMoveTo'
+    ];
+    // bind methods
+    events.forEach(m => {
+      this[m] = this[m].bind(this);
+    });
   }
 
-  handleBoardMouseDown(event) {
-    console.log(event);
-  }
-
-  componentDidUpdate() {
-    // 组件更新之后渲染 canvas 图像
+  componentDidMount() {
+    // 在初始化渲染执行之后立刻调用一次，绘制 canvas 图像
+    const point = this.refs.point.getDOMNode();
     const canvas = this.refs.canvas.getDOMNode();
     const context = canvas.getContext('2d');
     const width = canvas.width;
@@ -32,7 +43,17 @@ class Board extends React.Component {
     let pixels;
     let i = 0;
 
-    let HSV = colr.fromHex(this.state.color).toHsvArray();
+    let HSV = colr.fromHex(this.state.bgColor).toHsvArray();
+    // 计算起始坐标
+    
+    this.HSV = HSV;
+
+    let x = HSV[1] / 100 * width;
+    let y = (1 - HSV[2] / 100) * height;
+
+    point.style.left = x - 4 + 'px';
+    point.style.top = y - 4 + 'px';
+
     let transfromHsv = [];
 
     imageData = context.createImageData(width, height);
@@ -58,25 +79,92 @@ class Board extends React.Component {
     context.putImageData(imageData, 0, 0);
   }
 
+  handleBoardMouseDown(e) {
+    let x = e.clientX, y = e.clientY;
+
+    this.pointMoveTo({
+      x, y
+    });
+
+    window.addEventListener('mousemove', this.handleBoardDrag);
+    window.addEventListener('mouseup', this.handleBoardDragEnd);
+  }
+
+  handleBoardDrag(e){
+    let x = e.clientX, y = e.clientY;
+    this.pointMoveTo({
+      x, y
+    });
+  }
+
+  handleBoardDragEnd(e){
+    let x = e.clientX, y = e.clientY;
+    this.pointMoveTo({
+      x, y
+    });
+
+    window.removeEventListener('mousemove', this.handleBoardDrag);
+    window.removeEventListener('mouseup', this.handleBoardDragEnd);
+  }
+  /**
+   * 移动光标位置到
+   * @param  {object} pos X Y 全局坐标点
+   * @return {undefined}
+   */
+  pointMoveTo(pos){
+    let rect = React.findDOMNode(this).getBoundingClientRect();
+    let width = rect.width;
+    let height = rect.height;
+    let left = pos.x - rect.left;
+    let top = pos.y - rect.top;
+
+    if (left < 0) left = 0;
+    if (left > width) left = width;
+    if (top < 0) top = 0;
+    if (top > height) top = height;
+
+    let x = left - 4;
+    let y = top - 4;
+
+    this.setState({x, y});
+
+    let [H, S, V] = [this.HSV[0], left / width * 100, (1 - top / height) * 100];
+
+    let color = colr.fromHsvArray([H, S, V]);
+    let hex = color.toHex();
+    let rgb = color.toRgbObject();
+    let hsv = color.toHsvObject();
+    if (this.props.onChange) {
+      this.props.onChange({
+        hex, rgb, hsv
+      });
+    }
+  }
+
   render() {
     return (
       <div className={this.prefixClsFn('board')}>
         <canvas ref='canvas' width='200' height='150'
           onMouseDown={this.handleBoardMouseDown}
         ></canvas>
-        <span ref='point'></span>
+        <span ref='point' style={{'left': this.state.x, 'top': this.state.y}}></span>
       </div>
     );
   }
 }
 
 Board.propTypes = {
-  color: React.PropTypes.string
+  bgColor: React.PropTypes.string,
+  prefixCls: React.PropTypes.string,
+  x: React.PropTypes.number,
+  y: React.PropTypes.number
 };
 
 Board.defaultProps = {
-  color: '#F00',
-  prefixCls: 'rc-color-picker'
+  bgColor: '#F00',
+  prefixCls: 'rc-color-picker',
+  x: -999,
+  y: -999
 };
 
 module.exports = Board;

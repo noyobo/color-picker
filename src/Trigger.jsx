@@ -40,6 +40,15 @@ class Trigger extends React.Component {
     this.toggleClassName = toggleClassName.bind(this);
   }
 
+  componentWillReceiveProps(nextProps){
+    // 当色值发生改变
+    if (nextProps.color !== this.props.color) {
+      this.setState({
+        color: nextProps.color
+      });
+    }
+  }
+
   getOffset() {
     return Dom.getAlign(React.findDOMNode(this), this.props.align, this.props.offset);
   }
