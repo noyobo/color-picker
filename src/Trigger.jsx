@@ -32,7 +32,7 @@ class Trigger extends React.Component {
     this.state = {
       prefixCls: props.prefixCls,
       open: props.open,
-      color: props.color
+      bgColor: props.bgColor
     };
 
     this.prefixClsFn = prefixClsFn.bind(this);
@@ -40,11 +40,11 @@ class Trigger extends React.Component {
     this.toggleClassName = toggleClassName.bind(this);
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     // 当色值发生改变
-    if (nextProps.color !== this.props.color) {
+    if (nextProps.bgColor !== this.props.bgColor) {
       this.setState({
-        color: nextProps.color
+        bgColor: nextProps.bgColor
       });
     }
   }
@@ -55,13 +55,13 @@ class Trigger extends React.Component {
 
   render() {
     return (
-      <span className={this.prefixClsFn('trigger')}>
+      <span className={this.props.prefixCls}>
       <a
         className={this.toggleClassName()}
         role='button'
         onClick={this.handleTriggerClick}
         title='拾色器'
-        style={{backgroundColor: this.state.color}}
+        style={{backgroundColor: this.state.bgColor}}
       ></a>
       </span>
     );
@@ -71,7 +71,7 @@ class Trigger extends React.Component {
 Trigger.propTypes = {
   align: React.PropTypes.string,
   offset: React.PropTypes.array,
-  color: React.PropTypes.string,
+  bgColor: React.PropTypes.string,
   open: React.PropTypes.bool,
   prefixCls: React.PropTypes.string,
   onSwitch: React.PropTypes.func
@@ -80,9 +80,9 @@ Trigger.propTypes = {
 Trigger.defaultProps = {
   align: 'tr',
   offset: [5, 0],
-  color: '#36c',
+  bgColor: '#36c',
   open: false,
-  prefixCls: 'rc-color-picker',
+  prefixCls: 'rc-color-picker-trigger',
   onSwitch() {}
 };
 

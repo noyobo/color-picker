@@ -11,7 +11,6 @@ class AppColorPicker extends React.Component{
 
     this.state = {
       visible: false,
-      color: '#36c',
       style: {}
     };
   }
@@ -20,11 +19,11 @@ class AppColorPicker extends React.Component{
     this.setState({visible, style});
   }
 
-  onChange(colorPicker){
+  onColorChange(obj){
+    console.log(obj);
     this.setState({
-      color: colorPicker.hex
+      bgColor: obj.hex
     });
-    console.log(colorPicker);
   }
 
   render() {
@@ -32,15 +31,15 @@ class AppColorPicker extends React.Component{
     return (<div>
       <Trigger
         ref="trigger"
-        color={this.state.color}
+        bgColor={this.state.bgColor}
         open={this.state.visible}
         onSwitch={this.handleTriggerSwitch.bind(this)}
       />
       <ColorPicker
-        color={this.state.color}
+        bgColor={this.props.bgColor}
         visible={this.state.visible} 
         style={this.state.style} 
-        onChange={this.onChange.bind(this)}
+        onColorChange={this.onColorChange.bind(this)}
       />
      </div> 
     );
@@ -50,7 +49,7 @@ class AppColorPicker extends React.Component{
 React.render(
   <div style={{margin:20}}>
     <h1>拾色器</h1>
-    <AppColorPicker />
+    <AppColorPicker bgColor={'#36c'}/>
   </div>,
   document.getElementById('__react-content')
 );

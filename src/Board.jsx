@@ -1,108 +1,109 @@
 'use strict';
-
 const Colr = require('colr');
 const React = require('react');
 let prefixClsFn = require('./utils/prefixClsFn');
-
 let colr = new Colr();
-
 class Board extends React.Component {
-
   constructor(props) {
     super(props);
-
     this.state = {
       bgColor: props.bgColor,
+      alpha: props.alpha,
       prefixCls: props.prefixCls,
       x: props.x,
       y: props.y
     };
-
     this.prefixClsFn = prefixClsFn.bind(this);
-
     let events = [
       'handleBoardMouseDown',
       'handleBoardDrag',
       'handleBoardDragEnd',
-      'pointMoveTo'
+      'pointMoveTo',
+      '_updateBackgroundColor',
+      '_onColorChange'
     ];
     // bind methods
     events.forEach(m => {
       this[m] = this[m].bind(this);
     });
+
+    this._cacheColors = {};
+  }
+  componentWillUpdate(nextProps) {
+    if (nextProps.hue !== this.props.hue) {
+      this._updateBackgroundColor(nextProps.hue);
+    }
+    if (nextProps.alpha !== this.props.alpha) {
+      this.setState({
+        alpha: nextProps.alpha
+      });
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.x !== this.state.x) {
+      return true;
+    }
+    if (nextState.y !== this.state.y) {
+      return true;
+    }
+    if (nextProps.hue !== this.props.hue) {
+      return true;
+    }
+    if (nextProps.alpha !== this.props.alpha) {
+      return true;
+    }
+    return false;
   }
 
   componentDidMount() {
     // 在初始化渲染执行之后立刻调用一次，绘制 canvas 图像
-    const point = this.refs.point.getDOMNode();
     const canvas = this.refs.canvas.getDOMNode();
-    const context = canvas.getContext('2d');
+    const point = this.refs.point.getDOMNode();
     const width = canvas.width;
     const height = canvas.height;
-    let imageData;
-    let pixels;
-    let i = 0;
 
-    let HSV = colr.fromHex(this.state.bgColor).toHsvArray();
+    let HSV = colr.fromHex(this.state.bgColor).toHsvObject();
     // 计算起始坐标
-    
+
     this.HSV = HSV;
-
-    let x = HSV[1] / 100 * width;
-    let y = (1 - HSV[2] / 100) * height;
-
+    this.setState({
+      hex: HSV.h
+    });
+    let x = HSV.s / 100 * width;
+    let y = (1 - HSV.v / 100) * height;
     point.style.left = x - 4 + 'px';
     point.style.top = y - 4 + 'px';
-
-    let transfromHsv = [];
-
-    imageData = context.createImageData(width, height);
-    pixels = imageData.data;
-
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++, i += 4) {
-        transfromHsv[0] = HSV[0];
-        transfromHsv[1] = 100 * (x / width);
-        transfromHsv[2] = 100 * (1 - y / height);
-
-        // console.log(transfromHsv, HSV);
-
-        transfromHsv = colr.fromHsvArray(transfromHsv).toRgbArray();
-
-        pixels[i] = transfromHsv[0];
-        pixels[i + 1] = transfromHsv[1];
-        pixels[i + 2] = transfromHsv[2];
-        pixels[i + 3] = 255;
-      }
+    this._rendderCanvas(HSV.h);
+    // 初始化渲染的时候 回调通知其他组件初始化的值
+    // 这里很绕, 我还不知道怎么处理
+    if (typeof this.props.onRender === 'function') {
+      var colorObject = this.getColorObject(HSV);
+      this.props.onRender(colorObject);
     }
-
-    context.putImageData(imageData, 0, 0);
   }
 
   handleBoardMouseDown(e) {
     let x = e.clientX, y = e.clientY;
-
     this.pointMoveTo({
       x, y
     });
-
     window.addEventListener('mousemove', this.handleBoardDrag);
     window.addEventListener('mouseup', this.handleBoardDragEnd);
   }
 
-  handleBoardDrag(e){
+  handleBoardDrag(e) {
     let x = e.clientX, y = e.clientY;
     this.pointMoveTo({
       x, y
     });
   }
 
-  handleBoardDragEnd(e){
+  handleBoardDragEnd(e) {
     let x = e.clientX, y = e.clientY;
     this.pointMoveTo({
       x, y
     });
-
     window.removeEventListener('mousemove', this.handleBoardDrag);
     window.removeEventListener('mouseup', this.handleBoardDragEnd);
   }
@@ -111,43 +112,102 @@ class Board extends React.Component {
    * @param  {object} pos X Y 全局坐标点
    * @return {undefined}
    */
-  pointMoveTo(pos){
+  pointMoveTo(pos) {
     let rect = React.findDOMNode(this).getBoundingClientRect();
     let width = rect.width;
     let height = rect.height;
     let left = pos.x - rect.left;
     let top = pos.y - rect.top;
-
-    if (left < 0) left = 0;
-    if (left > width) left = width;
-    if (top < 0) top = 0;
-    if (top > height) top = height;
-
+    left = Math.max(0, left);
+    left = Math.min(left, width);
+    top = Math.max(0, top);
+    top = Math.min(top, height);
     let x = left - 4;
     let y = top - 4;
-
     this.setState({x, y});
+    let hsv = {
+      h:this.HSV.h,
+      s:left / width * 100,
+      v:(1 - top / height) * 100
+    };
 
-    let [H, S, V] = [this.HSV[0], left / width * 100, (1 - top / height) * 100];
+    var colorObject = this.getColorObject(hsv);
+    this.HSV = colorObject.hsv;
 
-    let color = colr.fromHsvArray([H, S, V]);
+    this._onColorChange(colorObject)
+  }
+
+  getColorObject(oHsv) {
+    let color = colr.fromHsvObject(oHsv);
     let hex = color.toHex();
     let rgb = color.toRgbObject();
     let hsv = color.toHsvObject();
-    if (this.props.onChange) {
-      this.props.onChange({
-        hex, rgb, hsv
-      });
+    let hsl = color.toHslObject();
+    let rgba = color.toRgbArray();
+    rgba.push(this.state.alpha / 100);
+    rgba = 'rbga(' + rgba.join(',') + ')';
+    return {
+      hex, rgb, hsv, hsl, rgba
+    };
+  }
+
+  _rendderCanvas(hex) {
+    const canvas = this.refs.canvas.getDOMNode();
+    const context = canvas.getContext('2d');
+    let imageData;
+    let pixels;
+    let i = 0;
+    let transfromHsv = [];
+    const width = canvas.width;
+    const height = canvas.height;
+    imageData = context.createImageData(width, height);
+    pixels = imageData.data;
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++, i += 4) {
+        transfromHsv[0] = hex;
+        transfromHsv[1] = 100 * (x / width);
+        transfromHsv[2] = 100 * (1 - y / height);
+        // console.log(transfromHsv, HSV);
+        transfromHsv = colr.fromHsvArray(transfromHsv).toRgbArray();
+        pixels[i] = transfromHsv[0];
+        pixels[i + 1] = transfromHsv[1];
+        pixels[i + 2] = transfromHsv[2];
+        pixels[i + 3] = 255;
+      }
+    }
+    context.putImageData(imageData, 0, 0);
+  }
+
+  _updateBackgroundColor(hue) {
+    this._rendderCanvas(hue);
+    let hsv = {h:hue, s:this.HSV.s, v:this.HSV.v};
+    var colorObject = this.getColorObject(hsv);
+    this.HSV = colorObject.hsv;
+    if (this.props.onColorChange) {
+      this.props.onColorChange(colorObject);
+    }
+  }
+
+  _onColorChange(colors) {
+    if (colors.hex === this._cacheColors.hex) {
+      return false;
+    }
+    this._cacheColors = colors;
+
+    if (this.props.onColorChange) {
+      this.props.onColorChange(colors);
     }
   }
 
   render() {
     return (
-      <div className={this.prefixClsFn('board')}>
-        <canvas ref='canvas' width='200' height='150'
-          onMouseDown={this.handleBoardMouseDown}
-        ></canvas>
+      <div className={this.props.prefixCls}>
+        <canvas ref='canvas' width='200' height='150'></canvas>
         <span ref='point' style={{'left': this.state.x, 'top': this.state.y}}></span>
+        <div
+          className={this.prefixClsFn('handler')}
+          onMouseDown={this.handleBoardMouseDown}
+        ></div>
       </div>
     );
   }
@@ -155,6 +215,8 @@ class Board extends React.Component {
 
 Board.propTypes = {
   bgColor: React.PropTypes.string,
+  alpha: React.PropTypes.number,
+  hue: React.PropTypes.number,
   prefixCls: React.PropTypes.string,
   x: React.PropTypes.number,
   y: React.PropTypes.number
@@ -162,9 +224,10 @@ Board.propTypes = {
 
 Board.defaultProps = {
   bgColor: '#F00',
-  prefixCls: 'rc-color-picker',
+  alpha: 100,
+  hue: 0,
+  prefixCls: 'rc-color-picker-board',
   x: -999,
   y: -999
 };
-
 module.exports = Board;
