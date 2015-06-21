@@ -37,12 +37,14 @@ class Ribbon extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    let HSV = colr.fromHex(nextProps.defaultColor).toHsvObject();
-    let hue = HSV.h;
-    let per = hue / 360 * 100;
-    this.setState({
-      huePercent: per
-    });
+    if (nextProps.defaultColor !== this.props.defaultColor) {
+      let HSV = colr.fromHex(nextProps.defaultColor).toHsvObject();
+      let hue = HSV.h;
+      let per = hue / 360 * 100;
+      this.setState({
+        huePercent: per
+      });
+    }
   }
 
   pointMoveTo(coords) {
@@ -57,6 +59,8 @@ class Ribbon extends React.Component{
     let hue = huePercent * 360;
 
     huePercent = huePercent * 100;
+
+    console.log(huePercent);
 
     this.setState({
       huePercent: huePercent

@@ -16,6 +16,7 @@ class Picker extends React.Component {
 
     this.state = {
       defaultColor: props.defaultColor,
+      selectColor: props.defaultColor,
       visible: props.visible,
       prefixCls: props.prefixCls,
       style: props.style
@@ -58,7 +59,7 @@ class Picker extends React.Component {
    */
   _onChange(colorsObj) {
     this.setState({
-      defaultColor: colorsObj.hex
+      selectColor: colorsObj.hex
     });
 
     if (typeof this.props.onChange === 'function') {
@@ -160,20 +161,20 @@ class Picker extends React.Component {
             <div className={this.prefixClsFn('wrap-alpha')}>
               <Alpha
                 alpha={this.state.alpha}
-                defaultColor={this.state.defaultColor}
+                defaultColor={this.state.selectColor}
                 onAlphaChange={this._onAlphaChange}
               />
             </div>
             <div className={this.prefixClsFn('wrap-preview')}>
               <Preview
                 alpha={this.state.alpha}
-                defaultColor={this.state.defaultColor}
+                defaultColor={this.state.selectColor}
               />
             </div>
           </div>
           <div className={this.prefixClsFn('wrap')} style={{height: 40, marginTop: 6}}>
             <Params
-              defaultColor={this.state.defaultColor}
+              defaultColor={this.state.selectColor}
               alpha={this.state.alpha}
               onAlphaChange={this._onAlphaChange}
               onHexChange={this._onHexChange}
@@ -189,6 +190,7 @@ Picker.propTypes = {
   visible: React.PropTypes.bool,
   prefixCls: React.PropTypes.string,
   defaultColor: React.PropTypes.string,
+  selectColor: React.PropTypes.string,
   style: React.PropTypes.object,
   onChange: React.PropTypes.func,
   onFocus: React.PropTypes.func,
@@ -199,6 +201,7 @@ Picker.defaultProps = {
   visible: true,
   prefixCls: 'rc-colorpicker',
   defaultColor: '#ff0000',
+  selectColor: '#ff0000',
   style: {},
   onChange() {},
   onFocus() {},
