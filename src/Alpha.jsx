@@ -16,7 +16,8 @@ class Alpha extends React.Component{
     this.state = {
       alpha: props.alpha,
       prefixCls: props.prefixCls,
-      defaultColor: props.defaultColor
+      defaultColor: props.defaultColor,
+      customColor: props.defaultColor
     };
 
     this.prefixClsFn = prefixClsFn.bind(this);
@@ -34,22 +35,23 @@ class Alpha extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      defaultColor: nextProps.defaultColor,
-      alpha: nextProps.alpha
-    });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.customColor !== this.props.customColor) {
+      this.setState({
+        defaultColor: nextProps.customColor,
+        customColor: nextProps.customColor
+      });
+    }
     if (nextProps.defaultColor !== this.props.defaultColor) {
-      return true;
+      this.setState({
+        defaultColor: nextProps.defaultColor,
+        customColor: nextProps.defaultColor
+      });
     }
-
-    if (nextState.alpha !== this.state.alpha) {
-      return true;
+    if (nextProps.alpha !== this.props.alpha) {
+      this.setState({
+        alpha: nextProps.alpha
+      });
     }
-
-    return false;
   }
 
   getBackground() {
@@ -126,6 +128,7 @@ Alpha.defaultProps = {
   alpha: 100,
   prefixCls: 'rc-colorpicker-alpha',
   defaultColor: '#f00',
+  customColor: '#f00',
   onAlphaChange: function() {}
 };
 

@@ -17,6 +17,7 @@ class Picker extends React.Component {
     this.state = {
       defaultColor: props.defaultColor,
       selectColor: props.defaultColor,
+      customColor: props.defaultColor,
       visible: props.visible,
       prefixCls: props.prefixCls,
       style: props.style
@@ -79,7 +80,8 @@ class Picker extends React.Component {
 
   _onHexChange(hex) {
     this.setState({
-      defaultColor: hex
+      defaultColor: hex,
+      customColor: hex
     });
   }
 
@@ -162,6 +164,7 @@ class Picker extends React.Component {
               <Alpha
                 alpha={this.state.alpha}
                 defaultColor={this.state.selectColor}
+                customColor={this.state.customColor}
                 onAlphaChange={this._onAlphaChange}
               />
             </div>
@@ -169,6 +172,7 @@ class Picker extends React.Component {
               <Preview
                 alpha={this.state.alpha}
                 defaultColor={this.state.selectColor}
+                customColor={this.state.customColor}
               />
             </div>
           </div>
@@ -190,7 +194,6 @@ Picker.propTypes = {
   visible: React.PropTypes.bool,
   prefixCls: React.PropTypes.string,
   defaultColor: React.PropTypes.string,
-  selectColor: React.PropTypes.string,
   style: React.PropTypes.object,
   onChange: React.PropTypes.func,
   onFocus: React.PropTypes.func,
@@ -201,7 +204,6 @@ Picker.defaultProps = {
   visible: true,
   prefixCls: 'rc-colorpicker',
   defaultColor: '#ff0000',
-  selectColor: '#ff0000',
   style: {},
   onChange() {},
   onFocus() {},

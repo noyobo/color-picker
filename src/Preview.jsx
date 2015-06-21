@@ -10,16 +10,24 @@ class Preview extends React.Component{
     this.state = {
       prefixCls: props.prefixCls,
       alpha: props.alpha,
-      defaultColor: props.defaultColor
+      defaultColor: props.defaultColor,
+      customColor: props.customColor,
     };
 
     this.prefixClsFn = prefixClsFn.bind(this);
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.defaultColor !== this.props.defaultColor) {
       this.setState({
-        defaultColor: nextProps.defaultColor
+        defaultColor: nextProps.defaultColor,
+        customColor: nextProps.defaultColor
+      });
+    }
+    if (nextProps.customColor !== this.props.customColor) {
+      this.setState({
+        defaultColor: nextProps.customColor,
+        customColor: nextProps.customColor
       });
     }
     if (nextProps.alpha !== this.props.alpha) {
@@ -41,13 +49,15 @@ class Preview extends React.Component{
 Preview.propTypes = {
   prefixCls: React.PropTypes.string,
   alpha: React.PropTypes.number,
-  defaultColor: React.PropTypes.string
+  defaultColor: React.PropTypes.string,
+  customColor: React.PropTypes.string
 };
 
 Preview.defaultProps = {
   prefixCls: 'rc-colorpicker-preview',
   alpha: 100,
-  defaultColor: '' // 背景颜色
+  defaultColor: '#f00', // 背景颜色
+  customColor: '#f00' // 背景颜色
 };
 
 module.exports = Preview;
