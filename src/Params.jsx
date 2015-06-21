@@ -2,6 +2,8 @@
 
 const React = require('react');
 const Colr = require('colr');
+const store = require('store');
+
 let prefixClsFn = require('./utils/prefixClsFn');
 
 let colr = new Colr();
@@ -49,13 +51,16 @@ function validationHex(hex) {
 class Params extends React.Component{
   constructor(props) {
     super(props);
+    var index = store.get('rc-colorpicker-index') || 0;
+    var modes = ['rgb', 'hsv', 'hsl'];
+    var mode = modes[index];
 
     var colors = this.formatHex(props.defaultColor);
 
     this.state = {
-      modes: ['rgb', 'hsv', 'hsl'],
-      index: 0,
-      mode: 'rgb',
+      modes: modes,
+      index: index,
+      mode: mode,
       prefixCls: props.prefixCls,
       colors: colors,
       hex: props.defaultColor.substr(1),
@@ -173,6 +178,7 @@ class Params extends React.Component{
     var index = this.state.index;
     index = (index + 1) % 3;
     var mode = this.state.modes[index];
+    store.set('rc-colorpicker-index', index);
     this.setState({
       index,
       mode
