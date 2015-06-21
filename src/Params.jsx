@@ -71,6 +71,13 @@ class Params extends React.Component{
 
     let events = [
       'formatHex',
+      'formatRgb',
+      'formatHsv',
+      'formatHsl',
+      '_chagneColorsFromHex',
+      '_chagneColorsFromRgb',
+      '_chagneColorsFromHsv',
+      '_chagneColorsFromHsl',
       'handlerHexChange',
       'handlerAlphaChange',
       'getRgbFromKey',
@@ -123,12 +130,34 @@ class Params extends React.Component{
 
   formatHex(hex) {
     let colors = colr.fromHex(hex);
-
     let rgb = colors.toRgbObject();
     let hsv = colors.toHsvObject();
     let hsl = colors.toHslObject();
+    return {rgb, hsv, hsl, hex};
+  }
 
-    return {rgb, hsv, hsl};
+  formatRgb(rgb) {
+    let colors = colr.fromRgbObject(rgb);
+    let hex = colors.toHex();
+    let hsv = colors.toHsvObject();
+    let hsl = colors.toHslObject();
+    return {rgb, hsv, hsl, hex};
+  }
+
+  formatHsv(hsv) {
+    let colors = colr.fromHsvObject(hsv);
+    let hex = colors.toHex();
+    let rgb = colors.toRgbObject();
+    let hsl = colors.toHslObject();
+    return {rgb, hsv, hsl, hex};
+  }
+
+  formatHsl(hsl) {
+    let colors = colr.fromHslObject(hsl);
+    let hex = colors.toHex();
+    let rgb = colors.toRgbObject();
+    let hsv = colors.toHsvObject();
+    return {rgb, hsv, hsl, hex};
   }
 
   handlerHexChange(event) {
@@ -142,7 +171,7 @@ class Params extends React.Component{
 
     if (hex.length > 2 && keycode === 13  && validationHex(hex)) {
       this.props.onHexChange('#' + hex);
-      this._chagneColors('#' + hex);
+      this._chagneColorsFromHex('#' + hex);
     }
   }
 
@@ -155,24 +184,21 @@ class Params extends React.Component{
     let value = event.target.value;
     var RGB = this.state.colors[this.state.mode];
     RGB[type] = parseInt(value);
-    var hex = colr.fromRgbObject(RGB).toHex();
-    this._chagneColors(hex);
+    this._chagneColorsFromRgb(RGB);
   }
 
   handlerHSVChange(type, event) {
     let value = event.target.value;
     var HSV = this.state.colors[this.state.mode];
     HSV[type] = parseInt(value);
-    var hex = colr.fromHsvObject(HSV).toHex();
-    this._chagneColors(hex);
+    this._chagneColorsFromHsv(HSV);
   }
 
   handlerHSLChange(type, event) {
     let value = event.target.value;
     var HSL = this.state.colors[this.state.mode];
     HSL[type] = parseInt(value);
-    var hex = colr.fromHslObject(HSL).toHex();
-    this._chagneColors(hex);
+    this._chagneColorsFromHsl(HSL);
   }
 
   handlerModeChange() {
@@ -183,15 +209,42 @@ class Params extends React.Component{
     this.setState({
       index,
       mode
-    })
+    });
   }
 
-  _chagneColors(hex) {
+  _chagneColorsFromHex(hex) {
     var newColors = this.formatHex(hex);
     this.props.onHexChange(hex);
     this.setState({
       colors: newColors,
       hex: hex.substr(1)
+    });
+  }
+
+  _chagneColorsFromRgb(rgb) {
+    var newColors = this.formatRgb(rgb);
+    this.props.onHexChange(newColors.hex);
+    this.setState({
+      colors: newColors,
+      hex: newColors.hex.substr(1)
+    });
+  }
+
+  _chagneColorsFromHsv(hsv) {
+    var newColors = this.formatHsv(hsv);
+    this.props.onHexChange(newColors.hex);
+    this.setState({
+      colors: newColors,
+      hex: newColors.hex.substr(1)
+    });
+  }
+
+  _chagneColorsFromHsl(hsl) {
+    var newColors = this.formatHsl(hsl);
+    this.props.onHexChange(newColors.hex);
+    this.setState({
+      colors: newColors,
+      hex: newColors.hex.substr(1)
     });
   }
 
@@ -337,6 +390,14 @@ class Params extends React.Component{
     );
   }
 }
+
+Params.propTypes = {
+  prefixCls: React.PropTypes.string,
+  defaultColor: React.PropTypes.string,
+  alpha: React.PropTypes.number,
+  onAlphaChange: React.PropTypes.func,
+  onHexChange: React.PropTypes.func
+};
 
 Params.defaultProps = {
   prefixCls: 'rc-colorpicker-params',

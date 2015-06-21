@@ -41,6 +41,11 @@ class Trigger extends React.Component{
   }
 }
 
+Trigger.propTypes = {
+  prefixCls: React.PropTypes.string,
+  defaultColor: React.PropTypes.string
+};
+
 Trigger.defaultProps = {
   prefixCls: 'rc-colorpicker-trigger',
   defaultColor: '#f00'

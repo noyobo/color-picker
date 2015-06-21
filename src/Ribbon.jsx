@@ -107,10 +107,16 @@ class Ribbon extends React.Component{
   }
 }
 
+Ribbon.propTypes = {
+  prefixCls: React.PropTypes.string,
+  defaultColor: React.PropTypes.string,
+  onHexChange: React.PropTypes.func
+};
+
 Ribbon.defaultProps = {
   prefixCls: 'rc-colorpicker-ribbon',
   defaultColor: '#f00',
-  onHexChange: function() {}
+  onHexChange() {}
 };
 
 module.exports = Ribbon;

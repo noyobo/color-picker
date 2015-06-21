@@ -11,7 +11,7 @@ class Preview extends React.Component{
       prefixCls: props.prefixCls,
       alpha: props.alpha,
       defaultColor: props.defaultColor,
-      customColor: props.customColor,
+      customColor: props.customColor
     };
 
     this.prefixClsFn = prefixClsFn.bind(this);

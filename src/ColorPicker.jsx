@@ -80,6 +80,13 @@ class ColorPicker extends React.Component{
   }
 }
 
+ColorPicker.propTypes = {
+  rootPrefixCls: React.PropTypes.string,
+  visible: React.PropTypes.bool,
+  defaultColor: React.PropTypes.string,
+  style: React.PropTypes.object
+};
+
 ColorPicker.defaultProps = {
   rootPrefixCls: 'rc-colorpicker',
   visible: false,

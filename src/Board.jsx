@@ -8,10 +8,11 @@ class Board extends React.Component {
     super(props);
     this.state = {
       defaultColor: props.defaultColor,
+      hue: props.hue,
       alpha: props.alpha,
       prefixCls: props.prefixCls,
-      x: props.x,
-      y: props.y
+      x: -999,
+      y: -999
     };
     this.prefixClsFn = prefixClsFn.bind(this);
     let events = [
@@ -227,17 +228,13 @@ Board.propTypes = {
   defaultColor: React.PropTypes.string,
   alpha: React.PropTypes.number,
   hue: React.PropTypes.number,
-  prefixCls: React.PropTypes.string,
-  x: React.PropTypes.number,
-  y: React.PropTypes.number
+  prefixCls: React.PropTypes.string
 };
 
 Board.defaultProps = {
   defaultColor: '#F00',
   alpha: 100,
   hue: 0,
-  prefixCls: 'rc-colorpicker-board',
-  x: -999,
-  y: -999
+  prefixCls: 'rc-colorpicker-board'
 };
 module.exports = Board;
