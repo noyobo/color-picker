@@ -178,7 +178,6 @@ class Board extends React.Component {
         transfromHsv[0] = hex;
         transfromHsv[1] = 100 * (x / width);
         transfromHsv[2] = 100 * (1 - y / height);
-        // console.log(transfromHsv, HSV);
         transfromHsv = colr.fromHsvArray(transfromHsv).toRgbArray();
         pixels[i] = transfromHsv[0];
         pixels[i + 1] = transfromHsv[1];

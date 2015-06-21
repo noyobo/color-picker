@@ -77,12 +77,21 @@ class Params extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    let colors = this.formatHex(nextProps.defaultColor);
-    this.setState({
-      alpha: nextProps.alpha,
-      hex: nextProps.defaultColor.substr(1),
-      colors
-    });
+    // 此方法需要对详细的属性做过滤, 不能单一的统一处理
+    // 父级元素的任意属性关联都可以触发, 曾经我以为是单个独自触发的
+    if (nextProps.defaultColor !== this.props.defaultColor) {
+      let colors = this.formatHex(nextProps.defaultColor);
+      this.setState({
+        hex: nextProps.defaultColor.substr(1),
+        colors
+      });
+    }
+
+    if (nextProps.alpha !== this.props.alpha) {
+      this.setState({
+        alpha: nextProps.alpha
+      });
+    }
   }
 
   getRgbFromKey(key) {

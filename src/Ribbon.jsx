@@ -60,8 +60,6 @@ class Ribbon extends React.Component{
 
     huePercent = huePercent * 100;
 
-    console.log(huePercent);
-
     this.setState({
       huePercent: huePercent
     });
