@@ -1,12 +1,10 @@
-@prefixClass: rc-color-picker;
+@prefixClass: rc-colorpicker;
 
 .@{prefixClass} {
-  position: absolute;
-  top: -999px;
-  left: -999px;
-  z-index: 10;
+  width: 200px + 18px;
   background-color: #fff;
   box-sizing: border-box;
+  outline: none;
   * {
     box-sizing: border-box;
   }
@@ -25,3 +23,4 @@
 @import 'index/Board';
 @import 'index/Ribbon';
 @import 'index/Alpha';
+@import 'index/Params';

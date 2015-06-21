@@ -45,7 +45,7 @@ Preview.propTypes = {
 };
 
 Preview.defaultProps = {
-  prefixCls: 'rc-color-picker-preview',
+  prefixCls: 'rc-colorpicker-preview',
   alpha: 100,
   bgColor: '' // 背景颜色
 };

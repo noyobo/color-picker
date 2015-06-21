@@ -25,7 +25,7 @@ class Panel extends React.Component{
 }
 
 Panel.defaultProps = {
-  prefixCls: 'rc-color-picker'
+  prefixCls: 'rc-colorpicker'
 };
 
 module.exports = Panel;

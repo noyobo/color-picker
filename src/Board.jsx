@@ -20,7 +20,8 @@ class Board extends React.Component {
       'handleBoardDragEnd',
       'pointMoveTo',
       '_updateBackgroundColor',
-      '_onColorChange'
+      '_onChange',
+      '_drawBoard'
     ];
     // bind methods
     events.forEach(m => {
@@ -29,7 +30,22 @@ class Board extends React.Component {
 
     this._cacheColors = {};
   }
+
+  componentDidMount() {
+    // 在初始化渲染执行之后立刻调用一次，绘制 canvas 图像
+    var HSV = this._drawBoard(this.state.bgColor);
+    // 初始化渲染的时候 回调通知其他组件初始化的值
+    // 这里很绕, 我还不知道怎么处理
+    if (typeof this.props.onRender === 'function') {
+      var colorObject = this.getColorsFromHsv(HSV);
+      this.props.onRender(colorObject);
+    }
+  }
+
   componentWillUpdate(nextProps) {
+    if (nextProps.bgColor !== this.props.bgColor) {
+      this._drawBoard(nextProps.bgColor);
+    }
     if (nextProps.hue !== this.props.hue) {
       this._updateBackgroundColor(nextProps.hue);
     }
@@ -53,34 +69,10 @@ class Board extends React.Component {
     if (nextProps.alpha !== this.props.alpha) {
       return true;
     }
-    return false;
-  }
-
-  componentDidMount() {
-    // 在初始化渲染执行之后立刻调用一次，绘制 canvas 图像
-    const canvas = this.refs.canvas.getDOMNode();
-    const point = this.refs.point.getDOMNode();
-    const width = canvas.width;
-    const height = canvas.height;
-
-    let HSV = colr.fromHex(this.state.bgColor).toHsvObject();
-    // 计算起始坐标
-
-    this.HSV = HSV;
-    this.setState({
-      hex: HSV.h
-    });
-    let x = HSV.s / 100 * width;
-    let y = (1 - HSV.v / 100) * height;
-    point.style.left = x - 4 + 'px';
-    point.style.top = y - 4 + 'px';
-    this._rendderCanvas(HSV.h);
-    // 初始化渲染的时候 回调通知其他组件初始化的值
-    // 这里很绕, 我还不知道怎么处理
-    if (typeof this.props.onRender === 'function') {
-      var colorObject = this.getColorObject(HSV);
-      this.props.onRender(colorObject);
+    if (nextProps.bgColor !== this.props.bgColor) {
+      return true;
     }
+    return false;
   }
 
   handleBoardMouseDown(e) {
@@ -126,18 +118,17 @@ class Board extends React.Component {
     let y = top - 4;
     this.setState({x, y});
     let hsv = {
-      h:this.HSV.h,
-      s:left / width * 100,
-      v:(1 - top / height) * 100
+      h: this.HSV.h,
+      s: parseInt(left / width * 100),
+      v: parseInt((1 - top / height) * 100)
     };
-
-    var colorObject = this.getColorObject(hsv);
+    var colorObject = this.getColorsFromHsv(hsv);
     this.HSV = colorObject.hsv;
 
-    this._onColorChange(colorObject)
+    this._onChange(colorObject);
   }
 
-  getColorObject(oHsv) {
+  getColorsFromHsv(oHsv) {
     let color = colr.fromHsvObject(oHsv);
     let hex = color.toHex();
     let rgb = color.toRgbObject();
@@ -149,6 +140,26 @@ class Board extends React.Component {
     return {
       hex, rgb, hsv, hsl, rgba
     };
+  }
+
+  _drawBoard(hex) {
+    const canvas = this.refs.canvas.getDOMNode();
+    const point = this.refs.point.getDOMNode();
+    const width = canvas.width;
+    const height = canvas.height;
+
+    let HSV = colr.fromHex(hex).toHsvObject();
+    // 计算起始坐标
+    this.HSV = HSV;
+    this.setState({
+      hex: HSV.h
+    });
+    let x = HSV.s / 100 * width;
+    let y = (1 - HSV.v / 100) * height;
+    point.style.left = x - 5 + 'px';
+    point.style.top = y - 5 + 'px';
+    this._rendderCanvas(HSV.h);
+    return HSV;
   }
 
   _rendderCanvas(hex) {
@@ -181,21 +192,21 @@ class Board extends React.Component {
   _updateBackgroundColor(hue) {
     this._rendderCanvas(hue);
     let hsv = {h:hue, s:this.HSV.s, v:this.HSV.v};
-    var colorObject = this.getColorObject(hsv);
+    var colorObject = this.getColorsFromHsv(hsv);
     this.HSV = colorObject.hsv;
-    if (this.props.onColorChange) {
-      this.props.onColorChange(colorObject);
+    if (this.props.onChange) {
+      this.props.onChange(colorObject);
     }
   }
 
-  _onColorChange(colors) {
+  _onChange(colors) {
     if (colors.hex === this._cacheColors.hex) {
       return false;
     }
     this._cacheColors = colors;
 
-    if (this.props.onColorChange) {
-      this.props.onColorChange(colors);
+    if (this.props.onChange) {
+      this.props.onChange(colors);
     }
   }
 
@@ -226,7 +237,7 @@ Board.defaultProps = {
   bgColor: '#F00',
   alpha: 100,
   hue: 0,
-  prefixCls: 'rc-color-picker-board',
+  prefixCls: 'rc-colorpicker-board',
   x: -999,
   y: -999
 };

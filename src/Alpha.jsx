@@ -33,14 +33,15 @@ class Alpha extends React.Component{
     });
   }
 
-  componentWillReceiveProps(nextProp) {
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      bgColor: nextProp.bgColor
+      bgColor: nextProps.bgColor,
+      alpha: nextProps.alpha
     });
   }
 
-  shouldComponentUpdate(nextProp, nextState) {
-    if (nextProp.bgColor !== this.props.bgColor) {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.bgColor !== this.props.bgColor) {
       return true;
     }
 
@@ -123,7 +124,7 @@ class Alpha extends React.Component{
 
 Alpha.defaultProps = {
   alpha: 100,
-  prefixCls: 'rc-color-picker-alpha',
+  prefixCls: 'rc-colorpicker-alpha',
   bgColor: '#f00',
   onAlphaChange: function() {}
 };

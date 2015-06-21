@@ -29,8 +29,17 @@ class Ribbon extends React.Component{
 
   componentDidMount() {
     let HSV = colr.fromHex(this.state.bgColor).toHsvObject();
-    let hex = HSV.h;
-    let per = hex / 360 * 100;
+    let hue = HSV.h;
+    let per = hue / 360 * 100;
+    this.setState({
+      huePercent: per
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let HSV = colr.fromHex(nextProps.bgColor).toHsvObject();
+    let hue = HSV.h;
+    let per = hue / 360 * 100;
     this.setState({
       huePercent: per
     });
@@ -45,13 +54,15 @@ class Ribbon extends React.Component{
     left = Math.min(left, width);
 
     let huePercent = left / width;
-    let hex = huePercent * 360;
+    let hue = huePercent * 360;
+
+    huePercent = huePercent * 100;
 
     this.setState({
-      huePercent: huePercent * 100
+      huePercent: huePercent
     });
 
-    this.props.onHexChange(hex);
+    this.props.onHexChange(hue);
   }
 
   handleMouseDown(e) {
@@ -95,7 +106,7 @@ class Ribbon extends React.Component{
 }
 
 Ribbon.defaultProps = {
-  prefixCls: 'rc-color-picker-ribbon',
+  prefixCls: 'rc-colorpicker-ribbon',
   bgColor: '#f00',
   onHexChange: function() {}
 };
