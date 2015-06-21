@@ -53,7 +53,9 @@ class Params extends React.Component{
     var colors = this.formatHex(props.defaultColor);
 
     this.state = {
-      mode: props.mode,
+      modes: ['rgb', 'hsv', 'hsl'],
+      index: 0,
+      mode: 'rgb',
       prefixCls: props.prefixCls,
       colors: colors,
       hex: props.defaultColor.substr(1),
@@ -67,8 +69,13 @@ class Params extends React.Component{
       'handlerHexChange',
       'handlerAlphaChange',
       'getRgbFromKey',
+      'getHsvFromKey',
+      'getHslFromKey',
       'handlerKeyPress',
-      'handlerRGBChange'
+      'handlerRGBChange',
+      'handlerHSVChange',
+      'handlerHSLChange',
+      'handlerModeChange'
     ];
 
     events.forEach(e => {
@@ -95,6 +102,16 @@ class Params extends React.Component{
   }
 
   getRgbFromKey(key) {
+    var mode = this.state.mode;
+    return this.state.colors[mode][key];
+  }
+
+  getHsvFromKey(key) {
+    var mode = this.state.mode;
+    return this.state.colors[mode][key];
+  }
+
+  getHslFromKey(key) {
     var mode = this.state.mode;
     return this.state.colors[mode][key];
   }
@@ -136,6 +153,32 @@ class Params extends React.Component{
     this._chagneColors(hex);
   }
 
+  handlerHSVChange(type, event) {
+    let value = event.target.value;
+    var HSV = this.state.colors[this.state.mode];
+    HSV[type] = parseInt(value);
+    var hex = colr.fromHsvObject(HSV).toHex();
+    this._chagneColors(hex);
+  }
+
+  handlerHSLChange(type, event) {
+    let value = event.target.value;
+    var HSL = this.state.colors[this.state.mode];
+    HSL[type] = parseInt(value);
+    var hex = colr.fromHslObject(HSL).toHex();
+    this._chagneColors(hex);
+  }
+
+  handlerModeChange() {
+    var index = this.state.index;
+    index = (index + 1) % 3;
+    var mode = this.state.modes[index];
+    this.setState({
+      index,
+      mode
+    })
+  }
+
   _chagneColors(hex) {
     var newColors = this.formatHex(hex);
     this.props.onHexChange(hex);
@@ -148,6 +191,7 @@ class Params extends React.Component{
   render() {
     return (
       <div className={this.props.prefixCls}>
+        {this.state.mode === 'rgb' &&
         <div className={this.prefixClsFn('input')}>
           <input
             className={this.prefixClsFn('hex')}
@@ -168,7 +212,6 @@ class Params extends React.Component{
             value={this.getRgbFromKey('g')}
             onChange={this.handlerRGBChange.bind(null, 'g')} />
           <input type='number'
-
             min={0}
             max={255}
             value={this.getRgbFromKey('b')}
@@ -180,13 +223,109 @@ class Params extends React.Component{
             value={this.state.alpha}
             onChange={this.handlerAlphaChange} />
         </div>
+        }
+        {this.state.mode === 'rgb' &&
         <div className={this.prefixClsFn('lable')}>
           <label className={this.prefixClsFn('lable-hex')}>Hex</label>
-          <label className={this.prefixClsFn('lable-number')}>R</label>
-          <label className={this.prefixClsFn('lable-number')}>G</label>
-          <label className={this.prefixClsFn('lable-number')}>B</label>
-          <label className={this.prefixClsFn('lable-number')}>A</label>
+          <label className={this.prefixClsFn('lable-number')}
+            onClick={this.handlerModeChange}>R</label>
+          <label className={this.prefixClsFn('lable-number')}
+            onClick={this.handlerModeChange}>G</label>
+          <label className={this.prefixClsFn('lable-number')}
+            onClick={this.handlerModeChange}>B</label>
+          <label className={this.prefixClsFn('lable-alpha')}>A</label>
         </div>
+        }
+        {this.state.mode === 'hsv' &&
+        <div className={this.prefixClsFn('input')}>
+          <input
+            className={this.prefixClsFn('hex')}
+            type='text'
+            maxLength='6'
+            onChange={this.handlerHexChange}
+            onKeyPress={this.handlerKeyPress}
+            value={this.state.hex}
+          />
+          <input type='number'
+            min={0}
+            max={360}
+            value={this.getHsvFromKey('h')}
+            onChange={this.handlerHSVChange.bind(null, 'h')} />
+          <input type='number'
+            min={0}
+            max={100}
+            value={this.getHsvFromKey('s')}
+            onChange={this.handlerHSVChange.bind(null, 's')} />
+          <input type='number'
+            min={0}
+            max={100}
+            value={this.getHsvFromKey('v')}
+            onChange={this.handlerHSVChange.bind(null, 'v')} />
+          <input type='number'
+            min={0}
+            max={100}
+            speed={1}
+            value={this.state.alpha}
+            onChange={this.handlerAlphaChange} />
+        </div>
+        }
+        {this.state.mode === 'hsv' &&
+        <div className={this.prefixClsFn('lable')}>
+          <label className={this.prefixClsFn('lable-hex')}>Hex</label>
+          <label className={this.prefixClsFn('lable-number')}
+            onClick={this.handlerModeChange}>H</label>
+          <label className={this.prefixClsFn('lable-number')}
+            onClick={this.handlerModeChange}>S</label>
+          <label className={this.prefixClsFn('lable-number')}
+            onClick={this.handlerModeChange}>B</label>
+          <label className={this.prefixClsFn('lable-alpha')}>A</label>
+        </div>
+        }
+        {this.state.mode === 'hsl' &&
+        <div className={this.prefixClsFn('input')}>
+          <input
+            className={this.prefixClsFn('hex')}
+            type='text'
+            maxLength='6'
+            onChange={this.handlerHexChange}
+            onKeyPress={this.handlerKeyPress}
+            value={this.state.hex}
+          />
+          <input type='number'
+            min={0}
+            max={360}
+            value={this.getHslFromKey('h')}
+            onChange={this.handlerHSLChange.bind(null, 'h')} />
+          <input type='number'
+            min={0}
+            max={100}
+            value={this.getHslFromKey('s')}
+            onChange={this.handlerHSLChange.bind(null, 's')} />
+          <input type='number'
+            min={0}
+            max={100}
+            value={this.getHslFromKey('l')}
+            onChange={this.handlerHSLChange.bind(null, 'l')} />
+          <input type='number'
+            min={0}
+            max={100}
+            speed={1}
+            value={this.state.alpha}
+            onChange={this.handlerAlphaChange} />
+        </div>
+        }
+        {this.state.mode === 'hsl' &&
+        <div className={this.prefixClsFn('lable')}>
+          <label className={this.prefixClsFn('lable-hex')}>Hex</label>
+          <label className={this.prefixClsFn('lable-number')}
+            onClick={this.handlerModeChange}>H</label>
+          <label className={this.prefixClsFn('lable-number')}
+            onClick={this.handlerModeChange}>S</label>
+          <label className={this.prefixClsFn('lable-number')}
+            onClick={this.handlerModeChange}>L</label>
+          <label className={this.prefixClsFn('lable-alpha')}>A</label>
+        </div>
+        }
       </div>
     );
   }
@@ -196,7 +335,6 @@ Params.defaultProps = {
   prefixCls: 'rc-colorpicker-params',
   defaultColor: '#ff0000',
   alpha: 100,
-  mode: 'rgb',
   onAlphaChange() {},
   onHexChange() {}
 };
