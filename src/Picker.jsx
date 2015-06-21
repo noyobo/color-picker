@@ -15,7 +15,7 @@ class Picker extends React.Component {
     super(props);
 
     this.state = {
-      bgColor: props.bgColor,
+      defaultColor: props.defaultColor,
       visible: props.visible,
       prefixCls: props.prefixCls,
       style: props.style
@@ -58,7 +58,7 @@ class Picker extends React.Component {
    */
   _onChange(colorsObj) {
     this.setState({
-      bgColor: colorsObj.hex
+      defaultColor: colorsObj.hex
     });
 
     if (typeof this.props.onChange === 'function') {
@@ -78,7 +78,7 @@ class Picker extends React.Component {
 
   _onHexChange(hex) {
     this.setState({
-      bgColor: hex
+      defaultColor: hex
     });
   }
 
@@ -146,34 +146,34 @@ class Picker extends React.Component {
           <Board
             alpha={this.state.alpha}
             hue={this.state.hue}
-            bgColor={this.state.bgColor}
+            defaultColor={this.state.defaultColor}
             onChange={this._onChange}
             onRender={this._onRender}
           />
           <div className={this.prefixClsFn('wrap')}>
             <div className={this.prefixClsFn('wrap-ribbon')}>
               <Ribbon
-                bgColor={this.state.bgColor}
+                defaultColor={this.state.defaultColor}
                 onHexChange={this._onHueChange}
               />
             </div>
             <div className={this.prefixClsFn('wrap-alpha')}>
               <Alpha
                 alpha={this.state.alpha}
-                bgColor={this.state.bgColor}
+                defaultColor={this.state.defaultColor}
                 onAlphaChange={this._onAlphaChange}
               />
             </div>
             <div className={this.prefixClsFn('wrap-preview')}>
               <Preview
                 alpha={this.state.alpha}
-                bgColor={this.state.bgColor}
+                defaultColor={this.state.defaultColor}
               />
             </div>
           </div>
           <div className={this.prefixClsFn('wrap')} style={{height: 40, marginTop: 6}}>
             <Params
-              bgColor={this.state.bgColor}
+              defaultColor={this.state.defaultColor}
               alpha={this.state.alpha}
               onAlphaChange={this._onAlphaChange}
               onHexChange={this._onHexChange}
@@ -188,7 +188,7 @@ class Picker extends React.Component {
 Picker.propTypes = {
   visible: React.PropTypes.bool,
   prefixCls: React.PropTypes.string,
-  bgColor: React.PropTypes.string,
+  defaultColor: React.PropTypes.string,
   style: React.PropTypes.object,
   onChange: React.PropTypes.func,
   onFocus: React.PropTypes.func,
@@ -198,7 +198,7 @@ Picker.propTypes = {
 Picker.defaultProps = {
   visible: true,
   prefixCls: 'rc-colorpicker',
-  bgColor: '#ff0000',
+  defaultColor: '#ff0000',
   style: {},
   onChange() {},
   onFocus() {},

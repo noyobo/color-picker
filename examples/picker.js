@@ -10,7 +10,7 @@ function onChange(obj) {
 
 React.render(
   <div style={{padding: 20}}>
-    <Picker onChange={onChange} />
+    <Picker defaultColor={'#468890'} onChange={onChange} />
   </div>, 
   document.getElementById('__react-content')
 );

@@ -7,7 +7,7 @@ const ColorPicker = require('rc-color-picker');
 React.render(
   <div style={{margin:20}}>
     <h1>拾色器</h1>
-    <ColorPicker bgColor={'#36c'} />
+    <ColorPicker defaultColor={'#36c'} />
   </div>,
   document.getElementById('__react-content')
 );

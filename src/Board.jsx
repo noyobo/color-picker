@@ -7,7 +7,7 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bgColor: props.bgColor,
+      defaultColor: props.defaultColor,
       alpha: props.alpha,
       prefixCls: props.prefixCls,
       x: props.x,
@@ -33,7 +33,7 @@ class Board extends React.Component {
 
   componentDidMount() {
     // 在初始化渲染执行之后立刻调用一次，绘制 canvas 图像
-    var HSV = this._drawBoard(this.state.bgColor);
+    var HSV = this._drawBoard(this.state.defaultColor);
     // 初始化渲染的时候 回调通知其他组件初始化的值
     // 这里很绕, 我还不知道怎么处理
     if (typeof this.props.onRender === 'function') {
@@ -43,8 +43,8 @@ class Board extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (nextProps.bgColor !== this.props.bgColor) {
-      this._drawBoard(nextProps.bgColor);
+    if (nextProps.defaultColor !== this.props.defaultColor) {
+      this._drawBoard(nextProps.defaultColor);
     }
     if (nextProps.hue !== this.props.hue) {
       this._updateBackgroundColor(nextProps.hue);
@@ -69,7 +69,7 @@ class Board extends React.Component {
     if (nextProps.alpha !== this.props.alpha) {
       return true;
     }
-    if (nextProps.bgColor !== this.props.bgColor) {
+    if (nextProps.defaultColor !== this.props.defaultColor) {
       return true;
     }
     return false;
@@ -225,7 +225,7 @@ class Board extends React.Component {
 }
 
 Board.propTypes = {
-  bgColor: React.PropTypes.string,
+  defaultColor: React.PropTypes.string,
   alpha: React.PropTypes.number,
   hue: React.PropTypes.number,
   prefixCls: React.PropTypes.string,
@@ -234,7 +234,7 @@ Board.propTypes = {
 };
 
 Board.defaultProps = {
-  bgColor: '#F00',
+  defaultColor: '#F00',
   alpha: 100,
   hue: 0,
   prefixCls: 'rc-colorpicker-board',

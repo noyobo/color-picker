@@ -9,7 +9,7 @@ class Trigger extends React.Component{
 
     this.state = {
       prefixCls: props.prefixCls,
-      bgColor: props.bgColor
+      defaultColor: props.defaultColor
     };
 
     this.prefixClsFn = prefixClsFn.bind(this);
@@ -18,12 +18,12 @@ class Trigger extends React.Component{
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      bgColor: nextProps.bgColor
+      defaultColor: nextProps.defaultColor
     });
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.bgColor !== this.props.bgColor;
+    return nextProps.defaultColor !== this.props.defaultColor;
   }
 
   handlerClick() {
@@ -35,7 +35,7 @@ class Trigger extends React.Component{
   render() {
     return (
       <div className={this.props.prefixCls} onClick={this.handlerClick}>
-        <span style={{backgroundColor: this.state.bgColor}} />
+        <span style={{backgroundColor: this.state.defaultColor}} />
       </div>
     );
   }
@@ -43,7 +43,7 @@ class Trigger extends React.Component{
 
 Trigger.defaultProps = {
   prefixCls: 'rc-colorpicker-trigger',
-  bgColor: '#f00'
+  defaultColor: '#f00'
 };
 
 module.exports = Trigger;

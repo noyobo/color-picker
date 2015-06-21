@@ -11,7 +11,7 @@ class Ribbon extends React.Component{
     super(props);
     this.state = {
       prefixCls: props.prefixCls,
-      bgColor: props.bgColor
+      defaultColor: props.defaultColor
     };
 
     this.prefixClsFn = prefixClsFn.bind(this);
@@ -28,7 +28,7 @@ class Ribbon extends React.Component{
   }
 
   componentDidMount() {
-    let HSV = colr.fromHex(this.state.bgColor).toHsvObject();
+    let HSV = colr.fromHex(this.state.defaultColor).toHsvObject();
     let hue = HSV.h;
     let per = hue / 360 * 100;
     this.setState({
@@ -37,7 +37,7 @@ class Ribbon extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    let HSV = colr.fromHex(nextProps.bgColor).toHsvObject();
+    let HSV = colr.fromHex(nextProps.defaultColor).toHsvObject();
     let hue = HSV.h;
     let per = hue / 360 * 100;
     this.setState({
@@ -107,7 +107,7 @@ class Ribbon extends React.Component{
 
 Ribbon.defaultProps = {
   prefixCls: 'rc-colorpicker-ribbon',
-  bgColor: '#f00',
+  defaultColor: '#f00',
   onHexChange: function() {}
 };
 

@@ -22,7 +22,7 @@ class ColorPicker extends React.Component{
 
     this.state = {
       rootPrefixCls: props.rootPrefixCls,
-      bgColor: props.bgColor,
+      defaultColor: props.defaultColor,
       visible: props.visible,
       style: props.style
     };
@@ -51,7 +51,7 @@ class ColorPicker extends React.Component{
 
   handlerChange(colors) {
     this.setState({
-      bgColor: colors.hex
+      defaultColor: colors.hex
     });
   }
 
@@ -64,12 +64,12 @@ class ColorPicker extends React.Component{
       <div>
         <Trigger
           ref='trigger'
-          bgColor={this.state.bgColor}
+          defaultColor={this.state.defaultColor}
           onToggle={this.triggerClickHandler}
         />
         <Picker
           ref='picker'
-          bgColor={this.state.bgColor}
+          defaultColor={this.state.defaultColor}
           style={this.state.style}
           visible={this.state.visible}
           onChange={this.handlerChange}
@@ -83,7 +83,7 @@ class ColorPicker extends React.Component{
 ColorPicker.defaultProps = {
   rootPrefixCls: 'rc-colorpicker',
   visible: false,
-  bgColor: '#F00',
+  defaultColor: '#F00',
   style: {
     position: 'absolute',
     zIndex: 100

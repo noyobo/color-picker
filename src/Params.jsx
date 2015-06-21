@@ -50,13 +50,13 @@ class Params extends React.Component{
   constructor(props) {
     super(props);
 
-    var colors = this.formatHex(props.bgColor);
+    var colors = this.formatHex(props.defaultColor);
 
     this.state = {
       mode: props.mode,
       prefixCls: props.prefixCls,
       colors: colors,
-      hex: props.bgColor.substr(1),
+      hex: props.defaultColor.substr(1),
       alpha: props.alpha
     };
 
@@ -77,10 +77,10 @@ class Params extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    let colors = this.formatHex(nextProps.bgColor);
+    let colors = this.formatHex(nextProps.defaultColor);
     this.setState({
       alpha: nextProps.alpha,
-      hex: nextProps.bgColor.substr(1),
+      hex: nextProps.defaultColor.substr(1),
       colors
     });
   }
@@ -185,7 +185,7 @@ class Params extends React.Component{
 
 Params.defaultProps = {
   prefixCls: 'rc-colorpicker-params',
-  bgColor: '#ff0000',
+  defaultColor: '#ff0000',
   alpha: 100,
   mode: 'rgb',
   onAlphaChange() {},
