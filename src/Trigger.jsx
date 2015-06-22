@@ -38,7 +38,7 @@ class Trigger extends React.Component{
 Trigger.propTypes = {
   prefixCls: React.PropTypes.string,
   defaultColor: React.PropTypes.string,
-  onToggle: React.PropTypes.func,
+  onToggle: React.PropTypes.func
 };
 
 Trigger.defaultProps = {
