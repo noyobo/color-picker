@@ -22,7 +22,7 @@ class Alpha extends React.Component{
 
     this.prefixClsFn = prefixClsFn.bind(this);
 
-    var events = [
+    let events = [
       'handleMouseDown',
       'handledDrag',
       'handledDragEnd',

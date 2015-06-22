@@ -16,11 +16,12 @@ class Ribbon extends React.Component{
 
     this.prefixClsFn = prefixClsFn.bind(this);
 
-    var events = [
+    let events = [
       'handleMouseDown',
       'handledDrag',
       'handledDragEnd',
-      'pointMoveTo'
+      'pointMoveTo',
+      '_setHuePosition'
     ];
     events.forEach(e => {
       this[e] = this[e].bind(this);
@@ -28,23 +29,23 @@ class Ribbon extends React.Component{
   }
 
   componentDidMount() {
-    let HSV = colr.fromHex(this.state.defaultColor).toHsvObject();
+    this._setHuePosition(this.state.defaultColor);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // 接收 defaultColor 响应当前坐标位置
+    if (nextProps.defaultColor !== this.props.defaultColor) {
+      this._setHuePosition(nextProps.defaultColor);
+    }
+  }
+
+  _setHuePosition(hex) {
+    let HSV = colr.fromHex(hex).toHsvObject();
     let hue = HSV.h;
     let per = hue / 360 * 100;
     this.setState({
       huePercent: per
     });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.defaultColor !== this.props.defaultColor) {
-      let HSV = colr.fromHex(nextProps.defaultColor).toHsvObject();
-      let hue = HSV.h;
-      let per = hue / 360 * 100;
-      this.setState({
-        huePercent: per
-      });
-    }
   }
 
   pointMoveTo(coords) {

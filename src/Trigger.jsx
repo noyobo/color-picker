@@ -22,14 +22,8 @@ class Trigger extends React.Component{
     });
   }
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.defaultColor !== this.props.defaultColor;
-  }
-
   handlerClick() {
-    if (typeof this.props.onToggle === 'function') {
-      this.props.onToggle();
-    }
+    this.props.onToggle();
   }
 
   render() {
@@ -43,12 +37,14 @@ class Trigger extends React.Component{
 
 Trigger.propTypes = {
   prefixCls: React.PropTypes.string,
-  defaultColor: React.PropTypes.string
+  defaultColor: React.PropTypes.string,
+  onToggle: React.PropTypes.func,
 };
 
 Trigger.defaultProps = {
   prefixCls: 'rc-colorpicker-trigger',
-  defaultColor: '#f00'
+  defaultColor: '#f00',
+  onToggle() {}
 };
 
 module.exports = Trigger;

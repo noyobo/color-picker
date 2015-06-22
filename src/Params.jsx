@@ -18,18 +18,18 @@ function hexVal (c) {
   );
 }
 function validationHex(hex) {
-  var i = hex[0] === '#' ? 1 : 0;
-  var len = hex.length;
+  let i = hex[0] === '#' ? 1 : 0;
+  let len = hex.length;
 
   if (len - i < 3) {
     return false;
   }
 
-  var r, g, b;
+  let r, g, b;
 
-  var h1 = hexVal(hex.charCodeAt(0 + i));
-  var h2 = hexVal(hex.charCodeAt(1 + i));
-  var h3 = hexVal(hex.charCodeAt(2 + i));
+  let h1 = hexVal(hex.charCodeAt(0 + i));
+  let h2 = hexVal(hex.charCodeAt(1 + i));
+  let h3 = hexVal(hex.charCodeAt(2 + i));
 
   if (len - i >= 6) {
     r = (h1 << 4) + h2;
@@ -51,11 +51,11 @@ function validationHex(hex) {
 class Params extends React.Component{
   constructor(props) {
     super(props);
-    var index = store.get('rc-colorpicker-index') || 0;
-    var modes = ['rgb', 'hsv', 'hsl'];
-    var mode = modes[index];
+    let index = store.get('rc-colorpicker-index') || 0;
+    let modes = ['rgb', 'hsv', 'hsl'];
+    let mode = modes[index];
 
-    var colors = this.formatHex(props.defaultColor);
+    let colors = this.formatHex(props.defaultColor);
 
     this.state = {
       modes: modes,
@@ -114,17 +114,17 @@ class Params extends React.Component{
   }
 
   getRgbFromKey(key) {
-    var mode = this.state.mode;
+    let mode = this.state.mode;
     return this.state.colors[mode][key];
   }
 
   getHsvFromKey(key) {
-    var mode = this.state.mode;
+    let mode = this.state.mode;
     return this.state.colors[mode][key];
   }
 
   getHslFromKey(key) {
-    var mode = this.state.mode;
+    let mode = this.state.mode;
     return this.state.colors[mode][key];
   }
 
@@ -167,7 +167,7 @@ class Params extends React.Component{
 
   handlerKeyPress(event) {
     let hex = event.target.value;
-    var keycode = event.charCode;
+    let keycode = event.charCode;
 
     if (hex.length > 2 && keycode === 13  && validationHex(hex)) {
       this.props.onHexChange('#' + hex);
@@ -182,29 +182,29 @@ class Params extends React.Component{
 
   handlerRGBChange(type, event) {
     let value = event.target.value;
-    var RGB = this.state.colors[this.state.mode];
+    let RGB = this.state.colors[this.state.mode];
     RGB[type] = parseInt(value);
     this._chagneColorsFromRgb(RGB);
   }
 
   handlerHSVChange(type, event) {
     let value = event.target.value;
-    var HSV = this.state.colors[this.state.mode];
+    let HSV = this.state.colors[this.state.mode];
     HSV[type] = parseInt(value);
     this._chagneColorsFromHsv(HSV);
   }
 
   handlerHSLChange(type, event) {
     let value = event.target.value;
-    var HSL = this.state.colors[this.state.mode];
+    let HSL = this.state.colors[this.state.mode];
     HSL[type] = parseInt(value);
     this._chagneColorsFromHsl(HSL);
   }
 
   handlerModeChange() {
-    var index = this.state.index;
+    let index = this.state.index;
     index = (index + 1) % 3;
-    var mode = this.state.modes[index];
+    let mode = this.state.modes[index];
     store.set('rc-colorpicker-index', index);
     this.setState({
       index,
@@ -213,7 +213,7 @@ class Params extends React.Component{
   }
 
   _chagneColorsFromHex(hex) {
-    var newColors = this.formatHex(hex);
+    let newColors = this.formatHex(hex);
     this.props.onHexChange(hex);
     this.setState({
       colors: newColors,
@@ -222,7 +222,7 @@ class Params extends React.Component{
   }
 
   _chagneColorsFromRgb(rgb) {
-    var newColors = this.formatRgb(rgb);
+    let newColors = this.formatRgb(rgb);
     this.props.onHexChange(newColors.hex);
     this.setState({
       colors: newColors,
@@ -231,7 +231,7 @@ class Params extends React.Component{
   }
 
   _chagneColorsFromHsv(hsv) {
-    var newColors = this.formatHsv(hsv);
+    let newColors = this.formatHsv(hsv);
     this.props.onHexChange(newColors.hex);
     this.setState({
       colors: newColors,
@@ -240,7 +240,7 @@ class Params extends React.Component{
   }
 
   _chagneColorsFromHsl(hsl) {
-    var newColors = this.formatHsl(hsl);
+    let newColors = this.formatHsl(hsl);
     this.props.onHexChange(newColors.hex);
     this.setState({
       colors: newColors,

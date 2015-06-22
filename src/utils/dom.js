@@ -1,15 +1,15 @@
 'use strict';
 
-var utils = require('dom-align/lib/utils');
+let utils = require('dom-align/lib/utils');
 
 function getRegion(node) {
-  var offset, w, h;
+  let offset, w, h;
   if (!utils.isWindow(node) && node.nodeType !== 9) {
     offset = utils.offset(node);
     w = utils.outerWidth(node);
     h = utils.outerHeight(node);
   } else {
-    var win = utils.getWindow(node);
+    let win = utils.getWindow(node);
     offset = {
       left: utils.getWindowScrollLeft(win),
       top: utils.getWindowScrollTop(win)
@@ -23,7 +23,7 @@ function getRegion(node) {
 }
 
 function getAlignOffset(region, align, offset) {
-  var V = align.charAt(0),
+  let V = align.charAt(0),
     H = align.charAt(1),
     w = region.width,
     h = region.height,
@@ -50,7 +50,7 @@ function getAlignOffset(region, align, offset) {
 }
 
 function getAlign(node, align, offset = [0, 0]) {
-  var region = getRegion(node);
+  let region = getRegion(node);
   return getAlignOffset(region, align, offset);
 }
 

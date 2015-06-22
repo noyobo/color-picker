@@ -8,7 +8,7 @@ const DOM = require('./utils/dom');
 let prefixClsFn = require('./utils/prefixClsFn');
 
 const extend = function (target, source) {
-  for (var i in source) {
+  for (let i in source) {
     if (!target.hasOwnProperty(i)) {
       target[i] = source[i];
     }
@@ -28,7 +28,7 @@ class ColorPicker extends React.Component{
     };
 
     this.prefixClsFn = prefixClsFn.bind(this);
-    var events = [
+    let events = [
       'triggerClickHandler',
       'handlerChange',
       'handlerBlur'

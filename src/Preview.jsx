@@ -56,8 +56,8 @@ Preview.propTypes = {
 Preview.defaultProps = {
   prefixCls: 'rc-colorpicker-preview',
   alpha: 100,
-  defaultColor: '#f00', // 背景颜色
-  customColor: '#f00' // 背景颜色
+  defaultColor: '#f00', // 背景颜色 响应来自  board 面板的选取颜色
+  customColor: '#f00' // 背景颜色  响应来自用户的输入颜色
 };
 
 module.exports = Preview;

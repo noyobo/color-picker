@@ -34,11 +34,11 @@ class Board extends React.Component {
 
   componentDidMount() {
     // 在初始化渲染执行之后立刻调用一次，绘制 canvas 图像
-    var HSV = this._drawBoard(this.state.defaultColor);
+    let HSV = this._drawBoard(this.state.defaultColor);
     // 初始化渲染的时候 回调通知其他组件初始化的值
     // 这里很绕, 我还不知道怎么处理
     if (typeof this.props.onRender === 'function') {
-      var colorObject = this.getColorsFromHsv(HSV);
+      let colorObject = this.getColorsFromHsv(HSV);
       this.props.onRender(colorObject);
     }
   }
@@ -123,7 +123,7 @@ class Board extends React.Component {
       s: parseInt(left / width * 100),
       v: parseInt((1 - top / height) * 100)
     };
-    var colorObject = this.getColorsFromHsv(hsv);
+    let colorObject = this.getColorsFromHsv(hsv);
     this.HSV = colorObject.hsv;
 
     this._onChange(colorObject);
@@ -192,7 +192,7 @@ class Board extends React.Component {
   _updateBackgroundColor(hue) {
     this._rendderCanvas(hue);
     let hsv = {h:hue, s:this.HSV.s, v:this.HSV.v};
-    var colorObject = this.getColorsFromHsv(hsv);
+    let colorObject = this.getColorsFromHsv(hsv);
     this.HSV = colorObject.hsv;
     if (this.props.onChange) {
       this.props.onChange(colorObject);
