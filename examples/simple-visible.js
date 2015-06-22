@@ -1,13 +1,34 @@
-'use strict';
+webpackJsonp([2],{
 
-require('rc-color-picker/assets/index.css');
-const React = require('react');
-const ColorPicker = require('rc-color-picker');
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
 
-React.render(
-  <div style={{margin:20}}>
-    <h1>拾色器</h1>
-    <ColorPicker defaultColor={'#36c'} visible={true} />
-  </div>,
-  document.getElementById('__react-content')
-);
+	module.exports = __webpack_require__(24);
+
+
+/***/ },
+
+/***/ 24:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(2);
+	var React = __webpack_require__(6);
+	var ColorPicker = __webpack_require__(7);
+	
+	React.render(React.createElement(
+	  'div',
+	  { style: { margin: 20 } },
+	  React.createElement(
+	    'h1',
+	    null,
+	    '拾色器'
+	  ),
+	  React.createElement(ColorPicker, { defaultColor: '#36c', visible: true })
+	), document.getElementById('__react-content'));
+
+/***/ }
+
+});
+//# sourceMappingURL=simple-visible.js.map

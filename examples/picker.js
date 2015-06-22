@@ -1,16 +1,30 @@
-'use strict';
+webpackJsonp([0],[
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
 
-require('rc-color-picker/assets/index.css');
-const React = require('react');
-const Picker = require('rc-color-picker').Picker;
+	module.exports = __webpack_require__(1);
 
-function onChange(obj) {
-  // console.log(obj);
-}
 
-React.render(
-  <div style={{padding: 20}}>
-    <Picker defaultColor={'#468890'} onChange={onChange} />
-  </div>, 
-  document.getElementById('__react-content')
-);
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(2);
+	var React = __webpack_require__(6);
+	var Picker = __webpack_require__(7).Picker;
+	
+	function onChange(obj) {}
+	
+	React.render(React.createElement(
+	  'div',
+	  { style: { padding: 20 } },
+	  React.createElement(Picker, { defaultColor: '#468890', onChange: onChange })
+	), document.getElementById('__react-content'));
+	
+	// console.log(obj);
+
+/***/ }
+]);
+//# sourceMappingURL=picker.js.map
