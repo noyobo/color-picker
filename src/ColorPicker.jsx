@@ -24,7 +24,10 @@ class ColorPicker extends React.Component{
       rootPrefixCls: props.rootPrefixCls,
       defaultColor: props.defaultColor,
       visible: props.visible,
-      style: props.style
+      style: {
+        position: 'absolute',
+        zIndex: 100
+      }
     };
 
     this.prefixClsFn = prefixClsFn.bind(this);
@@ -37,6 +40,15 @@ class ColorPicker extends React.Component{
     events.forEach(e => {
       this[e] = this[e].bind(this);
     });
+  }
+
+  componentDidMount() {
+    if (this.state.visible) {
+      let offest = DOM.getAlign(
+        React.findDOMNode(this.refs.trigger), 'tr', [5, 0]
+      );
+      extend(this.state.style, offest);
+    }
   }
 
   triggerClickHandler() {
@@ -83,18 +95,13 @@ class ColorPicker extends React.Component{
 ColorPicker.propTypes = {
   rootPrefixCls: React.PropTypes.string,
   visible: React.PropTypes.bool,
-  defaultColor: React.PropTypes.string,
-  style: React.PropTypes.object
+  defaultColor: React.PropTypes.string
 };
 
 ColorPicker.defaultProps = {
   rootPrefixCls: 'rc-colorpicker',
   visible: false,
-  defaultColor: '#F00',
-  style: {
-    position: 'absolute',
-    zIndex: 100
-  }
+  defaultColor: '#F00'
 };
 
 module.exports = ColorPicker;
