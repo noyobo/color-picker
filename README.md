@@ -29,8 +29,7 @@ color-picker ui component for react
 
 ## Screenshots
 
-<img src="http://gtms02.alicdn.com/tps/i2/TB1luFKHXXXXXb3XXXXl4OqLpXX-574-596.png" width="288"/>
-
+<img src=https://cloud.githubusercontent.com/assets/1292082/8275606/8608e8f8-18db-11e5-8d10-703253db2a4f.png width=238 />
 
 ## Development
 
@@ -48,10 +47,10 @@ online example: http://react-component.github.io/color-picker/build/examples/
 
 ## Feature
 
-* support ie8,ie8+,chrome,firefox,safari
+* support chrome,firefox,safari
+* support color mode RGB HSB HSL
 
 ### Keyboard
-
 
 
 ## install
@@ -68,27 +67,23 @@ React.render(<Rccolor-picker />, container);
 
 ## API
 
-### props
+### ColorPicker
 
-<table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-        <th style="width: 100px;">name</th>
-        <th style="width: 50px;">type</th>
-        <th style="width: 50px;">default</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>className</td>
-          <td>String</td>
-          <td></td>
-          <td>additional css class of root dom node</td>
-        </tr>
-    </tbody>
-</table>
+name|type|default|description
+---|---|---|---
+defaultColor|String|#ff0000|color board default background color
+visible| Boolean | false | Picker default is invisible, contrary
 
+### ColorPicker.Picker.props
+
+name|type|default|description
+---|---|---|---
+defaultColor|String|#ff0000|color board default background color
+visible| Boolean | true | root node is visible
+style | Object | {} | root node CSS style
+onChange|Function| | when select color trigger
+onFocus|Function| | when picker visiable trigger
+onBlur|Function| | when picker loose focus
 
 ## Test Case
 
