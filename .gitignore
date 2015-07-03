@@ -24,3 +24,5 @@ dist
 assets/**/*.css
 build
 lib
+
+bower_components/
