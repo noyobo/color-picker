@@ -15,15 +15,15 @@ webpackJsonp([0],[
 	var React = __webpack_require__(6);
 	var Picker = __webpack_require__(7).Picker;
 	
-	function onChange(obj) {}
+	function onChange(obj) {
+	  console.log(obj);
+	}
 	
 	React.render(React.createElement(
 	  'div',
 	  { style: { padding: 20 } },
 	  React.createElement(Picker, { defaultColor: '#468890', onChange: onChange })
 	), document.getElementById('__react-content'));
-	
-	// console.log(obj);
 
 /***/ }
 ]);

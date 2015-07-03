@@ -121,7 +121,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
-	exports.push([module.id, ".rc-colorpicker {\n  width: 218px;\n  background-color: #fff;\n  box-sizing: border-box;\n  outline: none;\n}\n.rc-colorpicker * {\n  box-sizing: border-box;\n}\n.rc-colorpicker-open {\n  display: block;\n}\n.rc-colorpicker-close {\n  display: none;\n}\n.rc-colorpicker-panel {\n  position: relative;\n  border-radius: 4px;\n  box-shadow: 0 1px 5px #ccc;\n  border: 1px solid #ccc;\n  padding: 8px;\n}\n.rc-colorpicker-wrap {\n  margin: 5px 0 0;\n  height: 30px;\n  width: 100%;\n  position: relative;\n}\n.rc-colorpicker-wrap-preview {\n  position: absolute;\n  right: 0px;\n}\n.rc-colorpicker-wrap-ribbon {\n  position: absolute;\n  left: 0px;\n  top: 0;\n  right: 35px;\n  height: 12.5px;\n}\n.rc-colorpicker-wrap-alpha {\n  position: absolute;\n  left: 0px;\n  right: 35px;\n  bottom: 0;\n  height: 12.5px;\n}\n.rc-colorpicker-trigger {\n  border: 1px solid #999;\n  display: inline-block;\n  padding: 2px;\n  border-radius: 2px;\n  font-size: 0px;\n  -moz-user-select: none;\n   -ms-user-select: none;\n       user-select: none;\n  -webkit-user-select: none;\n}\n.rc-colorpicker-trigger span {\n  width: 20px;\n  height: 20px;\n  display: inline-block;\n  cursor: pointer;\n}\n.rc-colorpicker-trigger-open {\n  box-shadow: 0px 0px 3px #999;\n}\n.rc-colorpicker-preview {\n  height: 30px;\n  width: 30px;\n  overflow: hidden;\n  border-radius: 2px;\n  background-image: url('data:image/png;base64,R0lGODdhCgAKAPAAAOXl5f///ywAAAAACgAKAEACEIQdqXt9GxyETrI279OIgwIAOw==');\n  background-repeat: repeat;\n}\n.rc-colorpicker-preview span {\n  display: block;\n  height: 100%;\n  box-shadow: 0 0 2px #808080 inset;\n  border-radius: 2px;\n}\n.rc-colorpicker-board {\n  position: relative;\n  font-size: 0;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.rc-colorpicker-board canvas {\n  border-radius: 2px;\n}\n.rc-colorpicker-board span {\n  position: absolute;\n  border-radius: 10px;\n  border: 1px solid #fff;\n  width: 9px;\n  height: 9px;\n  left: -999px;\n  top: -999px;\n  box-shadow: 0 0 1px rgba(120, 120, 120, 0.7);\n}\n.rc-colorpicker-board-handler {\n  box-shadow: 0 0 2px #808080 inset;\n  border-radius: 2px;\n  cursor: crosshair;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n.rc-colorpicker-ribbon {\n  position: relative;\n  height: 100%;\n  border-radius: 2px;\n  background: linear-gradient(to right, #ff0000 0%, #ff9900 10%, #cdff00 20%, #35ff00 30%, #00ff66 40%, #00fffd 50%, #0066ff 60%, #3200ff 70%, #cd00ff 80%, #ff0099 90%, #ff0000 100%);\n  box-shadow: 0 0 2px #808080 inset;\n}\n.rc-colorpicker-ribbon span {\n  position: absolute;\n  top: 0;\n  height: 100%;\n  width: 4px;\n  border: 1px solid #000000;\n  padding: 1px 0;\n  margin-left: -2px;\n  background-color: #fff;\n  border-radius: 3px;\n}\n.rc-colorpicker-ribbon-handler {\n  position: absolute;\n  width: 104%;\n  height: 100%;\n  left: -2%;\n  cursor: pointer;\n}\n.rc-colorpicker-alpha {\n  position: relative;\n  height: 100%;\n  border-radius: 2px;\n  background-image: url('data:image/png;base64,R0lGODdhCgAKAPAAAOXl5f///ywAAAAACgAKAEACEIQdqXt9GxyETrI279OIgwIAOw==');\n  background-repeat: repeat;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.rc-colorpicker-alpha-bg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  border-radius: 2px;\n  box-shadow: 0 0 2px #808080 inset;\n}\n.rc-colorpicker-alpha span {\n  position: absolute;\n  top: 0;\n  height: 100%;\n  width: 4px;\n  border: 1px solid #000000;\n  padding: 1px 0;\n  margin-left: -2px;\n  background-color: #fff;\n  border-radius: 3px;\n}\n.rc-colorpicker-alpha-handler {\n  position: absolute;\n  width: 104%;\n  height: 100%;\n  left: -2%;\n  cursor: pointer;\n}\n.rc-colorpicker-params {\n  font-size: 12px;\n}\n.rc-colorpicker-params-input {\n  overflow: hidden;\n  padding: 2px 0;\n}\n.rc-colorpicker-params input {\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n  text-align: center;\n  padding: 1px;\n  margin: 0;\n  float: left;\n  border-radius: 2px;\n  border: 1px solid #CACACA;\n  font-family: 'Helvetica Neue', Helvetica, sans-serif;\n}\n.rc-colorpicker-params-hex {\n  width: 52px;\n}\n.rc-colorpicker-params input[type=number] {\n  margin-left: 5px;\n  width: 32px;\n}\n.rc-colorpicker-params input[type=number]::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n}\n.rc-colorpicker-params-lable {\n  padding: 2px 0;\n  height: 22px;\n  line-height: 18px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.rc-colorpicker-params-lable label {\n  float: left;\n  text-align: center;\n}\n.rc-colorpicker-params-lable-hex {\n  width: 52px;\n}\n.rc-colorpicker-params-lable-number,\n.rc-colorpicker-params-lable-alpha {\n  margin-left: 5px;\n  width: 32px;\n}\n.rc-colorpicker-params-lable-number:hover {\n  border-radius: 2px;\n  background-color: #eee;\n  box-shadow: 0 0 0 1px #ccc inset;\n  cursor: pointer;\n}\n", ""]);
+	exports.push([module.id, ".rc-colorpicker {\n  width: 218px;\n  background-color: #fff;\n  box-sizing: border-box;\n  outline: none;\n}\n.rc-colorpicker * {\n  box-sizing: border-box;\n}\n.rc-colorpicker-open {\n  display: block;\n}\n.rc-colorpicker-close {\n  display: none;\n}\n.rc-colorpicker-panel {\n  position: relative;\n  border-radius: 4px;\n  box-shadow: 0 1px 5px #ccc;\n  border: 1px solid #ccc;\n  padding: 8px;\n}\n.rc-colorpicker-wrap {\n  margin: 5px 0 0;\n  height: 30px;\n  width: 100%;\n  position: relative;\n}\n.rc-colorpicker-wrap-preview {\n  position: absolute;\n  right: 0px;\n}\n.rc-colorpicker-wrap-ribbon {\n  position: absolute;\n  left: 0px;\n  top: 0;\n  right: 35px;\n  height: 12.5px;\n}\n.rc-colorpicker-wrap-alpha {\n  position: absolute;\n  left: 0px;\n  right: 35px;\n  bottom: 0;\n  height: 12.5px;\n}\n.rc-colorpicker-trigger {\n  border: 1px solid #999;\n  display: inline-block;\n  padding: 2px;\n  border-radius: 2px;\n  font-size: 0px;\n  -moz-user-select: none;\n   -ms-user-select: none;\n       user-select: none;\n  -webkit-user-select: none;\n}\n.rc-colorpicker-trigger span {\n  width: 20px;\n  height: 20px;\n  display: inline-block;\n  cursor: pointer;\n}\n.rc-colorpicker-trigger-open {\n  box-shadow: 0px 0px 3px #999;\n}\n.rc-colorpicker-preview {\n  height: 30px;\n  width: 30px;\n  overflow: hidden;\n  border-radius: 2px;\n  background-image: url('data:image/png;base64,R0lGODdhCgAKAPAAAOXl5f///ywAAAAACgAKAEACEIQdqXt9GxyETrI279OIgwIAOw==');\n  background-repeat: repeat;\n}\n.rc-colorpicker-preview span {\n  display: block;\n  height: 100%;\n  box-shadow: 0 0 2px #808080 inset;\n  border-radius: 2px;\n}\n.rc-colorpicker-board {\n  position: relative;\n  font-size: 0;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.rc-colorpicker-board span {\n  position: absolute;\n  border-radius: 10px;\n  border: 1px solid #fff;\n  width: 9px;\n  height: 9px;\n  left: -999px;\n  top: -999px;\n  box-shadow: 0 0 1px rgba(120, 120, 120, 0.7);\n  z-index: 2;\n}\n.rc-colorpicker-board-hsv {\n  width: 200px;\n  height: 150px;\n  position: relative;\n  z-index: 1;\n  border-radius: 2px;\n}\n.rc-colorpicker-board-saturation {\n  border-radius: 2px;\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0;\n  top: 0;\n  z-index: 2;\n  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9InJnYigwLDAsMCkiIHN0b3Atb3BhY2l0eT0iMCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);\n  background-image: linear-gradient(to bottom, transparent 0%, #000000 100%);\n}\n.rc-colorpicker-board-lightness {\n  border-radius: 2px;\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0;\n  top: 0;\n  z-index: 1;\n  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0icmdiKDAsMCwwKSIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);\n  background-image: linear-gradient(to right, #ffffff 0%, transparent 100%);\n}\n.rc-colorpicker-board-handler {\n  box-shadow: 0 0 2px #808080 inset;\n  border-radius: 2px;\n  cursor: crosshair;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 3;\n}\n.rc-colorpicker-ribbon {\n  position: relative;\n  height: 100%;\n  border-radius: 2px;\n  box-shadow: 0 0 2px #808080 inset;\n  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZjAwMDAiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAlIiBzdG9wLWNvbG9yPSIjZmY5OTAwIiBzdG9wLW9wYWNpdHk9IjEiLz48c3RvcCBvZmZzZXQ9IjIwJSIgc3RvcC1jb2xvcj0iI2NkZmYwMCIgc3RvcC1vcGFjaXR5PSIxIi8+PHN0b3Agb2Zmc2V0PSIzMCUiIHN0b3AtY29sb3I9IiMzNWZmMDAiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iNDAlIiBzdG9wLWNvbG9yPSIjMDBmZjY2IiBzdG9wLW9wYWNpdHk9IjEiLz48c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzAwZmZmZCIgc3RvcC1vcGFjaXR5PSIxIi8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMwMDY2ZmYiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iNzAlIiBzdG9wLWNvbG9yPSIjMzIwMGZmIiBzdG9wLW9wYWNpdHk9IjEiLz48c3RvcCBvZmZzZXQ9IjgwJSIgc3RvcC1jb2xvcj0iI2NkMDBmZiIgc3RvcC1vcGFjaXR5PSIxIi8+PHN0b3Agb2Zmc2V0PSI5MCUiIHN0b3AtY29sb3I9IiNmZjAwOTkiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmMDAwMCIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);\n  background-image: linear-gradient(to right, #ff0000 0%, #ff9900 10%, #cdff00 20%, #35ff00 30%, #00ff66 40%, #00fffd 50%, #0066ff 60%, #3200ff 70%, #cd00ff 80%, #ff0099 90%, #ff0000 100%);\n}\n.rc-colorpicker-ribbon span {\n  position: absolute;\n  top: 0;\n  height: 100%;\n  width: 4px;\n  border: 1px solid #000000;\n  padding: 1px 0;\n  margin-left: -2px;\n  background-color: #fff;\n  border-radius: 3px;\n}\n.rc-colorpicker-ribbon-handler {\n  position: absolute;\n  width: 104%;\n  height: 100%;\n  left: -2%;\n  cursor: pointer;\n}\n.rc-colorpicker-alpha {\n  position: relative;\n  height: 100%;\n  border-radius: 2px;\n  background-image: url('data:image/png;base64,R0lGODdhCgAKAPAAAOXl5f///ywAAAAACgAKAEACEIQdqXt9GxyETrI279OIgwIAOw==');\n  background-repeat: repeat;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.rc-colorpicker-alpha-bg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  border-radius: 2px;\n  box-shadow: 0 0 2px #808080 inset;\n}\n.rc-colorpicker-alpha span {\n  position: absolute;\n  top: 0;\n  height: 100%;\n  width: 4px;\n  border: 1px solid #000000;\n  padding: 1px 0;\n  margin-left: -2px;\n  background-color: #fff;\n  border-radius: 3px;\n}\n.rc-colorpicker-alpha-handler {\n  position: absolute;\n  width: 104%;\n  height: 100%;\n  left: -2%;\n  cursor: pointer;\n}\n.rc-colorpicker-params {\n  font-size: 12px;\n}\n.rc-colorpicker-params-input {\n  overflow: hidden;\n  padding: 2px 0;\n}\n.rc-colorpicker-params input {\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n  text-align: center;\n  padding: 1px;\n  margin: 0;\n  float: left;\n  border-radius: 2px;\n  border: 1px solid #CACACA;\n  font-family: 'Helvetica Neue', Helvetica, sans-serif;\n}\n.rc-colorpicker-params-hex {\n  width: 52px;\n}\n.rc-colorpicker-params input[type=number] {\n  margin-left: 5px;\n  width: 32px;\n}\n.rc-colorpicker-params input[type=number]::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n}\n.rc-colorpicker-params-lable {\n  padding: 2px 0;\n  height: 22px;\n  line-height: 18px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.rc-colorpicker-params-lable label {\n  float: left;\n  text-align: center;\n}\n.rc-colorpicker-params-lable-hex {\n  width: 52px;\n}\n.rc-colorpicker-params-lable-number,\n.rc-colorpicker-params-lable-alpha {\n  margin-left: 5px;\n  width: 32px;\n}\n.rc-colorpicker-params-lable-number:hover {\n  border-radius: 2px;\n  background-color: #eee;\n  box-shadow: 0 0 0 1px #ccc inset;\n  cursor: pointer;\n}\n", ""]);
 
 /***/ },
 /* 4 */
@@ -709,7 +709,7 @@
 	
 	    this.prefixClsFn = prefixClsFn.bind(this);
 	
-	    var events = ['toggleClassName', 'toggle', '_onChange', '_onRender', '_onHueChange', '_onHexChange', '_onAlphaChange', 'handleFocus', 'handlerBlur'];
+	    var events = ['toggleClassName', 'toggle', '_onChange', '_onHueChange', '_onHexChange', '_onAlphaChange', 'handleFocus', 'handlerBlur'];
 	    // bind methods
 	    events.forEach(function (m) {
 	      _this[m] = _this[m].bind(_this);
@@ -746,13 +746,6 @@
 	      if (typeof this.props.onChange === 'function') {
 	        this.props.onChange(colorsObj);
 	      }
-	    }
-	  }, {
-	    key: '_onRender',
-	    value: function _onRender(colorsObj) {
-	      this.setState({
-	        colorsObj: colorsObj
-	      });
 	    }
 	  }, {
 	    key: '_onHueChange',
@@ -842,8 +835,7 @@
 	        alpha: this.state.alpha,
 	        hue: this.state.hue,
 	        defaultColor: this.state.defaultColor,
-	        onChange: this._onChange,
-	        onRender: this._onRender
+	        onChange: this._onChange
 	      }), React.createElement('div', { className: this.prefixClsFn('wrap') }, React.createElement('div', { className: this.prefixClsFn('wrap-ribbon') }, React.createElement(Ribbon, {
 	        defaultColor: this.state.defaultColor,
 	        onHexChange: this._onHueChange
@@ -943,6 +935,9 @@
 	var prefixClsFn = __webpack_require__(10);
 	var colr = new Colr();
 	
+	var width = 200;
+	var height = 150;
+	
 	var Board = (function (_React$Component) {
 	  function Board(props) {
 	    var _this = this;
@@ -950,14 +945,27 @@
 	    _classCallCheck(this, Board);
 	
 	    _get(Object.getPrototypeOf(Board.prototype), 'constructor', this).call(this, props);
+	
+	    var HSV = colr.fromHex(props.defaultColor).toHsvObject();
+	
+	    this.HSV = HSV;
+	
+	    var hueHsv = [HSV.h, 100, 100];
+	    var hueColor = colr.fromHsvArray(hueHsv).toHex();
+	
+	    var x = HSV.s / 100 * width - 4;
+	    var y = (1 - HSV.v / 100) * height - 4;
+	
 	    this.state = {
+	      hueColor: hueColor,
+	      x: x,
+	      y: y,
 	      defaultColor: props.defaultColor,
 	      hue: props.hue,
 	      alpha: props.alpha,
-	      prefixCls: props.prefixCls,
-	      x: -999,
-	      y: -999
+	      prefixCls: props.prefixCls
 	    };
+	
 	    this.prefixClsFn = prefixClsFn.bind(this);
 	    var events = ['handleBoardMouseDown', 'handleBoardDrag', 'handleBoardDragEnd', 'pointMoveTo', '_updateBackgroundColor', '_onChange', '_drawBoard'];
 	    // bind methods
@@ -971,18 +979,6 @@
 	  _inherits(Board, _React$Component);
 	
 	  _createClass(Board, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      // 在初始化渲染执行之后立刻调用一次，绘制 canvas 图像
-	      var HSV = this._drawBoard(this.state.defaultColor);
-	      // 初始化渲染的时候 回调通知其他组件初始化的值
-	      // 这里很绕, 我还不知道怎么处理
-	      if (typeof this.props.onRender === 'function') {
-	        var colorObject = this.getColorsFromHsv(HSV);
-	        this.props.onRender(colorObject);
-	      }
-	    }
-	  }, {
 	    key: 'componentWillUpdate',
 	    value: function componentWillUpdate(nextProps) {
 	      if (nextProps.defaultColor !== this.props.defaultColor) {
@@ -1058,17 +1054,19 @@
 	     */
 	    value: function pointMoveTo(pos) {
 	      var rect = React.findDOMNode(this).getBoundingClientRect();
-	      var width = rect.width;
-	      var height = rect.height;
 	      var left = pos.x - rect.left;
 	      var top = pos.y - rect.top;
+	
 	      left = Math.max(0, left);
 	      left = Math.min(left, width);
 	      top = Math.max(0, top);
 	      top = Math.min(top, height);
+	
 	      var x = left - 4;
 	      var y = top - 4;
+	
 	      this.setState({ x: x, y: y });
+	
 	      var hsv = {
 	        h: this.HSV.h,
 	        s: parseInt(left / width * 100),
@@ -1097,55 +1095,33 @@
 	  }, {
 	    key: '_drawBoard',
 	    value: function _drawBoard(hex) {
-	      var canvas = this.refs.canvas.getDOMNode();
-	      var point = this.refs.point.getDOMNode();
-	      var width = canvas.width;
-	      var height = canvas.height;
-	
 	      var HSV = colr.fromHex(hex).toHsvObject();
 	      // 计算起始坐标
 	      this.HSV = HSV;
 	      this.setState({
 	        hex: HSV.h
 	      });
-	      var x = HSV.s / 100 * width;
-	      var y = (1 - HSV.v / 100) * height;
-	      point.style.left = x - 5 + 'px';
-	      point.style.top = y - 5 + 'px';
-	      this._rendderCanvas(HSV.h);
+	      var x = HSV.s / 100 * width - 4;
+	      var y = (1 - HSV.v / 100) * height - 4;
+	
+	      this.setState({ x: x, y: y });
+	
+	      this._rendderHueColor(HSV.h);
 	      return HSV;
 	    }
 	  }, {
-	    key: '_rendderCanvas',
-	    value: function _rendderCanvas(hex) {
-	      var canvas = this.refs.canvas.getDOMNode();
-	      var context = canvas.getContext('2d');
-	      var imageData = undefined;
-	      var pixels = undefined;
-	      var i = 0;
-	      var transfromHsv = [];
-	      var width = canvas.width;
-	      var height = canvas.height;
-	      imageData = context.createImageData(width, height);
-	      pixels = imageData.data;
-	      for (var y = 0; y < height; y++) {
-	        for (var x = 0; x < width; x++, i += 4) {
-	          transfromHsv[0] = hex;
-	          transfromHsv[1] = 100 * (x / width);
-	          transfromHsv[2] = 100 * (1 - y / height);
-	          transfromHsv = colr.fromHsvArray(transfromHsv).toRgbArray();
-	          pixels[i] = transfromHsv[0];
-	          pixels[i + 1] = transfromHsv[1];
-	          pixels[i + 2] = transfromHsv[2];
-	          pixels[i + 3] = 255;
-	        }
-	      }
-	      context.putImageData(imageData, 0, 0);
+	    key: '_rendderHueColor',
+	    value: function _rendderHueColor(hue) {
+	      var hsv = [hue, 100, 100];
+	      var rgb = colr.fromHsvArray(hsv).toHex();
+	      this.setState({
+	        hueColor: rgb
+	      });
 	    }
 	  }, {
 	    key: '_updateBackgroundColor',
 	    value: function _updateBackgroundColor(hue) {
-	      this._rendderCanvas(hue);
+	      this._rendderHueColor(hue);
 	      var hsv = { h: hue, s: this.HSV.s, v: this.HSV.v };
 	      var colorObject = this.getColorsFromHsv(hsv);
 	      this.HSV = colorObject.hsv;
@@ -1168,7 +1144,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return React.createElement('div', { className: this.props.prefixCls }, React.createElement('canvas', { ref: 'canvas', width: '200', height: '150' }), React.createElement('span', { ref: 'point', style: { 'left': this.state.x, 'top': this.state.y } }), React.createElement('div', {
+	      return React.createElement('div', { className: this.props.prefixCls }, React.createElement('div', { className: this.prefixClsFn('hsv'), style: { backgroundColor: this.state.hueColor } }, React.createElement('div', { className: this.prefixClsFn('saturation') }), React.createElement('div', { className: this.prefixClsFn('lightness') })), React.createElement('span', { ref: 'point', style: { 'left': this.state.x, 'top': this.state.y } }), React.createElement('div', {
 	        className: this.prefixClsFn('handler'),
 	        onMouseDown: this.handleBoardMouseDown
 	      }));
@@ -1694,7 +1670,7 @@
 	  if (max === 0) {
 	    s = 0;
 	  } else {
-	    s = (delta / max * 1000) / 10;
+	    s = delta / max * 100;
 	  }
 	
 	  if (max === min) {
@@ -1713,7 +1689,7 @@
 	    h += 360;
 	  }
 	
-	  v = ((max / 255) * 1000) / 10;
+	  v = (max / 255) * 100;
 	
 	  return [h, s, v];
 	}
