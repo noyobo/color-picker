@@ -2,6 +2,7 @@
 
 const React = require('react');
 const Colr = require('colr');
+const event = require('eventlistener');
 let prefixClsFn = require('./utils/prefixClsFn');
 
 let colr = new Colr();
@@ -75,8 +76,8 @@ class Ribbon extends React.Component{
       x, y
     });
 
-    window.addEventListener('mousemove', this.handledDrag);
-    window.addEventListener('mouseup', this.handledDragEnd);
+    event.add(window, 'mousemove', this.handledDrag);
+    event.add(window, 'mouseup', this.handledDragEnd);
   }
 
   handledDrag(e) {
@@ -91,8 +92,8 @@ class Ribbon extends React.Component{
     this.pointMoveTo({
       x, y
     });
-    window.removeEventListener('mousemove', this.handledDrag);
-    window.removeEventListener('mouseup', this.handledDragEnd);
+    event.remove(window, 'mousemove', this.handledDrag);
+    event.remove(window, 'mouseup', this.handledDragEnd);
   }
 
   render() {

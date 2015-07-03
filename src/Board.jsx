@@ -1,7 +1,9 @@
 'use strict';
 const Colr = require('colr');
 const React = require('react');
+const event = require('eventlistener');
 let prefixClsFn = require('./utils/prefixClsFn');
+
 let colr = new Colr();
 
 const width = 200;
@@ -87,8 +89,8 @@ class Board extends React.Component {
     this.pointMoveTo({
       x, y
     });
-    window.addEventListener('mousemove', this.handleBoardDrag);
-    window.addEventListener('mouseup', this.handleBoardDragEnd);
+    event.add(window, 'mousemove', this.handleBoardDrag);
+    event.add(window, 'mouseup', this.handleBoardDragEnd);
   }
 
   handleBoardDrag(e) {
@@ -103,8 +105,8 @@ class Board extends React.Component {
     this.pointMoveTo({
       x, y
     });
-    window.removeEventListener('mousemove', this.handleBoardDrag);
-    window.removeEventListener('mouseup', this.handleBoardDragEnd);
+    event.remove(window, 'mousemove', this.handleBoardDrag);
+    event.remove(window, 'mouseup', this.handleBoardDragEnd);
   }
   /**
    * 移动光标位置到
