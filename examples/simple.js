@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(23);
+	module.exports = __webpack_require__(24);
 
 
 /***/ },
 
-/***/ 23:
+/***/ 24:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19,13 +19,15 @@ webpackJsonp([1],{
 	
 	React.render(React.createElement(
 	  'div',
-	  { style: { margin: 20 } },
+	  { style: { margin: 20, textAlign: 'center' } },
 	  React.createElement(
 	    'h1',
 	    null,
 	    '拾色器'
 	  ),
-	  React.createElement(ColorPicker, { defaultColor: '#36c' })
+	  React.createElement(ColorPicker, { defaultColor: '#36c' }),
+	  React.createElement('br', null),
+	  React.createElement(ColorPicker, { defaultColor: '#fcd', align: 'left' })
 	), document.getElementById('__react-content'));
 
 /***/ }

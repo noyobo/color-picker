@@ -409,7 +409,7 @@
 	var React = __webpack_require__(6);
 	var Trigger = __webpack_require__(9);
 	var Picker = __webpack_require__(11);
-	var DOM = __webpack_require__(21);
+	var DOM = __webpack_require__(22);
 	
 	var prefixClsFn = __webpack_require__(10);
 	
@@ -454,14 +454,17 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      if (this.state.visible) {
-	        var offest = DOM.getAlign(React.findDOMNode(this.refs.trigger), 'tr', [5, 0]);
-	        extend(this.state.style, offest);
+	        var offest = DOM.getAlign(React.findDOMNode(this.refs.picker), React.findDOMNode(this.refs.trigger), this.props.align, [5, 0]);
+	        var styleObj = extend(this.state.style, offest);
+	        this.setState({
+	          style: styleObj
+	        });
 	      }
 	    }
 	  }, {
 	    key: 'triggerClickHandler',
 	    value: function triggerClickHandler() {
-	      var offest = DOM.getAlign(React.findDOMNode(this.refs.trigger), 'tr', [5, 0]);
+	      var offest = DOM.getAlign(React.findDOMNode(this.refs.picker), React.findDOMNode(this.refs.trigger), this.props.align, [5, 0]);
 	
 	      extend(this.state.style, offest);
 	
@@ -503,13 +506,15 @@
 	ColorPicker.propTypes = {
 	  rootPrefixCls: React.PropTypes.string,
 	  visible: React.PropTypes.bool,
-	  defaultColor: React.PropTypes.string
+	  defaultColor: React.PropTypes.string,
+	  align: React.PropTypes.string
 	};
 	
 	ColorPicker.defaultProps = {
 	  rootPrefixCls: 'rc-colorpicker',
 	  visible: false,
-	  defaultColor: '#F00'
+	  defaultColor: '#F00',
+	  align: 'right'
 	};
 	
 	module.exports = ColorPicker;
@@ -683,10 +688,10 @@
 	var React = __webpack_require__(6);
 	// 色板
 	var Board = __webpack_require__(12);
-	var Preview = __webpack_require__(15);
-	var Ribbon = __webpack_require__(16);
-	var Alpha = __webpack_require__(17);
-	var Params = __webpack_require__(18);
+	var Preview = __webpack_require__(16);
+	var Ribbon = __webpack_require__(17);
+	var Alpha = __webpack_require__(18);
+	var Params = __webpack_require__(19);
 	
 	var prefixClsFn = __webpack_require__(10);
 	
@@ -932,7 +937,9 @@
 	
 	var Colr = __webpack_require__(13);
 	var React = __webpack_require__(6);
+	var event = __webpack_require__(15);
 	var prefixClsFn = __webpack_require__(10);
+	
 	var colr = new Colr();
 	
 	var width = 200;
@@ -1021,8 +1028,8 @@
 	      this.pointMoveTo({
 	        x: x, y: y
 	      });
-	      window.addEventListener('mousemove', this.handleBoardDrag);
-	      window.addEventListener('mouseup', this.handleBoardDragEnd);
+	      event.add(window, 'mousemove', this.handleBoardDrag);
+	      event.add(window, 'mouseup', this.handleBoardDragEnd);
 	    }
 	  }, {
 	    key: 'handleBoardDrag',
@@ -1041,8 +1048,8 @@
 	      this.pointMoveTo({
 	        x: x, y: y
 	      });
-	      window.removeEventListener('mousemove', this.handleBoardDrag);
-	      window.removeEventListener('mouseup', this.handleBoardDragEnd);
+	      event.remove(window, 'mousemove', this.handleBoardDrag);
+	      event.remove(window, 'mouseup', this.handleBoardDragEnd);
 	    }
 	  }, {
 	    key: 'pointMoveTo',
@@ -1824,6 +1831,35 @@
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root,factory){
+	    if (true) {
+	        !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else if (typeof exports === 'object') {
+	        module.exports = factory();
+	    } else {
+	        root.eventListener = factory();
+	  }
+	}(this, function () {
+		function wrap(standard, fallback) {
+			return function (el, evtName, listener, useCapture) {
+				if (el[standard]) {
+					el[standard](evtName, listener, useCapture);
+				} else if (el[fallback]) {
+					el[fallback]('on' + evtName, listener);
+				}
+			}
+		}
+	
+	    return {
+			add: wrap('addEventListener', 'attachEvent'),
+			remove: wrap('removeEventListener', 'detachEvent')
+		};
+	}));
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	var _createClass = (function () {
@@ -1937,7 +1973,7 @@
 	module.exports = Preview;
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1986,6 +2022,7 @@
 	
 	var React = __webpack_require__(6);
 	var Colr = __webpack_require__(13);
+	var event = __webpack_require__(15);
 	var prefixClsFn = __webpack_require__(10);
 	
 	var colr = new Colr();
@@ -2066,8 +2103,8 @@
 	        x: x, y: y
 	      });
 	
-	      window.addEventListener('mousemove', this.handledDrag);
-	      window.addEventListener('mouseup', this.handledDragEnd);
+	      event.add(window, 'mousemove', this.handledDrag);
+	      event.add(window, 'mouseup', this.handledDragEnd);
 	    }
 	  }, {
 	    key: 'handledDrag',
@@ -2086,8 +2123,8 @@
 	      this.pointMoveTo({
 	        x: x, y: y
 	      });
-	      window.removeEventListener('mousemove', this.handledDrag);
-	      window.removeEventListener('mouseup', this.handledDragEnd);
+	      event.remove(window, 'mousemove', this.handledDrag);
+	      event.remove(window, 'mouseup', this.handledDragEnd);
 	    }
 	  }, {
 	    key: 'render',
@@ -2117,7 +2154,7 @@
 	module.exports = Ribbon;
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2166,6 +2203,7 @@
 	
 	var React = __webpack_require__(6);
 	var Colr = __webpack_require__(13);
+	var event = __webpack_require__(15);
 	var prefixClsFn = __webpack_require__(10);
 	
 	var colr = new Colr();
@@ -2259,8 +2297,8 @@
 	        x: x, y: y
 	      });
 	
-	      window.addEventListener('mousemove', this.handledDrag);
-	      window.addEventListener('mouseup', this.handledDragEnd);
+	      event.add(window, 'mousemove', this.handledDrag);
+	      event.add(window, 'mouseup', this.handledDragEnd);
 	    }
 	  }, {
 	    key: 'handledDrag',
@@ -2279,8 +2317,8 @@
 	      this.pointMoveTo({
 	        x: x, y: y
 	      });
-	      window.removeEventListener('mousemove', this.handledDrag);
-	      window.removeEventListener('mouseup', this.handledDragEnd);
+	      event.remove(window, 'mousemove', this.handledDrag);
+	      event.remove(window, 'mouseup', this.handledDragEnd);
 	    }
 	  }, {
 	    key: 'render',
@@ -2310,7 +2348,7 @@
 	module.exports = Alpha;
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2359,7 +2397,7 @@
 	
 	var React = __webpack_require__(6);
 	var Colr = __webpack_require__(13);
-	var store = __webpack_require__(19);
+	var store = __webpack_require__(20);
 	
 	var prefixClsFn = __webpack_require__(10);
 	
@@ -2722,7 +2760,7 @@
 	module.exports = Params;
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {;(function(win){
@@ -2901,10 +2939,10 @@
 	
 	})(Function('return this')());
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21)(module)))
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -2920,12 +2958,12 @@
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(22);
+	var utils = __webpack_require__(23);
 	
 	function getRegion(node) {
 	  var offset = undefined,
@@ -2949,39 +2987,31 @@
 	  return offset;
 	}
 	
-	function getAlignOffset(region, align, offset) {
-	  var V = align.charAt(0),
-	      H = align.charAt(1),
-	      w = region.width,
-	      h = region.height,
-	      x = undefined,
+	function getAlignOffset(targetRegion, referRegion, align, offset) {
+	  var x = undefined,
 	      y = undefined;
 	
-	  x = region.left;
-	  y = region.top;
+	  x = referRegion.left;
+	  y = referRegion.top;
 	
-	  if (V === 'c') {
-	    y += h / 2;
-	  } else if (V === 'b') {
-	    y += h;
+	  if (align === 'right') {
+	    x += referRegion.width;
+	  } else if (align === 'left') {
+	    x -= targetRegion.width + offset[0] * 2;
 	  }
 	
-	  if (H === 'c') {
-	    x += w / 2;
-	  } else if (H === 'r') {
-	    x += w;
-	  }
 	  return {
 	    left: x + offset[0],
 	    top: y + offset[1]
 	  };
 	}
 	
-	function getAlign(node, align) {
-	  var offset = arguments[2] === undefined ? [0, 0] : arguments[2];
+	function getAlign(targetNode, referNode, align) {
+	  var offset = arguments[3] === undefined ? [0, 0] : arguments[3];
 	
-	  var region = getRegion(node);
-	  return getAlignOffset(region, align, offset);
+	  var referRegion = getRegion(referNode);
+	  var targetRegion = getRegion(targetNode);
+	  return getAlignOffset(targetRegion, referRegion, align, offset);
 	}
 	
 	module.exports = {
@@ -2989,7 +3019,7 @@
 	};
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	'use strict';
