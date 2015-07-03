@@ -22,36 +22,28 @@ function getRegion(node) {
   return offset;
 }
 
-function getAlignOffset(region, align, offset) {
-  let V = align.charAt(0),
-    H = align.charAt(1),
-    w = region.width,
-    h = region.height,
-    x, y;
+function getAlignOffset(targetRegion, referRegion, align, offset) {
+  let x, y;
 
-  x = region.left;
-  y = region.top;
+  x = referRegion.left;
+  y = referRegion.top;
 
-  if (V === 'c') {
-    y += h / 2;
-  } else if (V === 'b') {
-    y += h;
+  if (align === 'right') {
+    x += referRegion.width;
+  } else if (align === 'left') {
+    x -= targetRegion.width + offset[0] * 2;
   }
 
-  if (H === 'c') {
-    x += w / 2;
-  } else if (H === 'r') {
-    x += w;
-  }
   return {
     left: x + offset[0],
     top: y + offset[1]
   };
 }
 
-function getAlign(node, align, offset = [0, 0]) {
-  let region = getRegion(node);
-  return getAlignOffset(region, align, offset);
+function getAlign(targetNode, referNode, align, offset = [0, 0]) {
+  let referRegion = getRegion(referNode);
+  let targetRegion = getRegion(targetNode);
+  return getAlignOffset(targetRegion, referRegion, align, offset);
 }
 
 module.exports = {

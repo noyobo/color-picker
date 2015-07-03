@@ -45,15 +45,24 @@ class ColorPicker extends React.Component{
   componentDidMount() {
     if (this.state.visible) {
       let offest = DOM.getAlign(
-        React.findDOMNode(this.refs.trigger), 'tr', [5, 0]
+        React.findDOMNode(this.refs.picker),
+        React.findDOMNode(this.refs.trigger),
+        this.props.align,
+        [5, 0]
       );
-      extend(this.state.style, offest);
+      var styleObj = extend(this.state.style, offest);
+      this.setState({
+        style: styleObj
+      });
     }
   }
 
   triggerClickHandler() {
     let offest = DOM.getAlign(
-        React.findDOMNode(this.refs.trigger), 'tr', [5, 0]
+        React.findDOMNode(this.refs.picker),
+        React.findDOMNode(this.refs.trigger),
+        this.props.align,
+        [5, 0]
     );
 
     extend(this.state.style, offest);
@@ -95,13 +104,15 @@ class ColorPicker extends React.Component{
 ColorPicker.propTypes = {
   rootPrefixCls: React.PropTypes.string,
   visible: React.PropTypes.bool,
-  defaultColor: React.PropTypes.string
+  defaultColor: React.PropTypes.string,
+  align: React.PropTypes.string
 };
 
 ColorPicker.defaultProps = {
   rootPrefixCls: 'rc-colorpicker',
   visible: false,
-  defaultColor: '#F00'
+  defaultColor: '#F00',
+  align: 'right'
 };
 
 module.exports = ColorPicker;
