@@ -5,7 +5,7 @@ const React = require('react');
 const Picker = require('rc-color-picker').Picker;
 
 function onChange(obj) {
-  // console.log(obj);
+  console.log(obj);
 }
 
 React.render(

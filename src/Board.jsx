@@ -3,17 +3,34 @@ const Colr = require('colr');
 const React = require('react');
 let prefixClsFn = require('./utils/prefixClsFn');
 let colr = new Colr();
+
+const width = 200;
+const height = 150;
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
+
+    let HSV = colr.fromHex(props.defaultColor).toHsvObject();
+
+    this.HSV = HSV;
+
+    let hueHsv = [HSV.h, 100, 100];
+    let hueColor = colr.fromHsvArray(hueHsv).toHex();
+
+    let x = HSV.s / 100 * width - 4;
+    let y = (1 - HSV.v / 100) * height - 4;
+
     this.state = {
+      hueColor,
+      x,
+      y,
       defaultColor: props.defaultColor,
       hue: props.hue,
       alpha: props.alpha,
-      prefixCls: props.prefixCls,
-      x: -999,
-      y: -999
+      prefixCls: props.prefixCls
     };
+
     this.prefixClsFn = prefixClsFn.bind(this);
     let events = [
       'handleBoardMouseDown',
@@ -30,17 +47,6 @@ class Board extends React.Component {
     });
 
     this._cacheColors = {};
-  }
-
-  componentDidMount() {
-    // 在初始化渲染执行之后立刻调用一次，绘制 canvas 图像
-    let HSV = this._drawBoard(this.state.defaultColor);
-    // 初始化渲染的时候 回调通知其他组件初始化的值
-    // 这里很绕, 我还不知道怎么处理
-    if (typeof this.props.onRender === 'function') {
-      let colorObject = this.getColorsFromHsv(HSV);
-      this.props.onRender(colorObject);
-    }
   }
 
   componentWillUpdate(nextProps) {
@@ -107,17 +113,19 @@ class Board extends React.Component {
    */
   pointMoveTo(pos) {
     let rect = React.findDOMNode(this).getBoundingClientRect();
-    let width = rect.width;
-    let height = rect.height;
     let left = pos.x - rect.left;
     let top = pos.y - rect.top;
+
     left = Math.max(0, left);
     left = Math.min(left, width);
     top = Math.max(0, top);
     top = Math.min(top, height);
+
     let x = left - 4;
     let y = top - 4;
+
     this.setState({x, y});
+
     let hsv = {
       h: this.HSV.h,
       s: parseInt(left / width * 100),
@@ -144,53 +152,31 @@ class Board extends React.Component {
   }
 
   _drawBoard(hex) {
-    const canvas = this.refs.canvas.getDOMNode();
-    const point = this.refs.point.getDOMNode();
-    const width = canvas.width;
-    const height = canvas.height;
-
     let HSV = colr.fromHex(hex).toHsvObject();
     // 计算起始坐标
     this.HSV = HSV;
     this.setState({
       hex: HSV.h
     });
-    let x = HSV.s / 100 * width;
-    let y = (1 - HSV.v / 100) * height;
-    point.style.left = x - 5 + 'px';
-    point.style.top = y - 5 + 'px';
-    this._rendderCanvas(HSV.h);
+    let x = HSV.s / 100 * width - 4;
+    let y = (1 - HSV.v / 100) * height - 4;
+
+    this.setState({x, y});
+
+    this._rendderHueColor(HSV.h);
     return HSV;
   }
 
-  _rendderCanvas(hex) {
-    const canvas = this.refs.canvas.getDOMNode();
-    const context = canvas.getContext('2d');
-    let imageData;
-    let pixels;
-    let i = 0;
-    let transfromHsv = [];
-    const width = canvas.width;
-    const height = canvas.height;
-    imageData = context.createImageData(width, height);
-    pixels = imageData.data;
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++, i += 4) {
-        transfromHsv[0] = hex;
-        transfromHsv[1] = 100 * (x / width);
-        transfromHsv[2] = 100 * (1 - y / height);
-        transfromHsv = colr.fromHsvArray(transfromHsv).toRgbArray();
-        pixels[i] = transfromHsv[0];
-        pixels[i + 1] = transfromHsv[1];
-        pixels[i + 2] = transfromHsv[2];
-        pixels[i + 3] = 255;
-      }
-    }
-    context.putImageData(imageData, 0, 0);
+  _rendderHueColor(hue) {
+    let hsv = [hue, 100, 100];
+    let rgb = colr.fromHsvArray(hsv).toHex();
+    this.setState({
+      hueColor: rgb
+    });
   }
 
   _updateBackgroundColor(hue) {
-    this._rendderCanvas(hue);
+    this._rendderHueColor(hue);
     let hsv = {h:hue, s:this.HSV.s, v:this.HSV.v};
     let colorObject = this.getColorsFromHsv(hsv);
     this.HSV = colorObject.hsv;
@@ -213,12 +199,15 @@ class Board extends React.Component {
   render() {
     return (
       <div className={this.props.prefixCls}>
-        <canvas ref='canvas' width='200' height='150'></canvas>
-        <span ref='point' style={{'left': this.state.x, 'top': this.state.y}}></span>
+        <div className={this.prefixClsFn('hsv')} style={{backgroundColor: this.state.hueColor}}>
+          <div className={this.prefixClsFn('saturation')}/>
+          <div className={this.prefixClsFn('lightness')}/>
+        </div>
+        <span ref='point' style={{'left': this.state.x, 'top': this.state.y}} />
         <div
           className={this.prefixClsFn('handler')}
           onMouseDown={this.handleBoardMouseDown}
-        ></div>
+        />
       </div>
     );
   }

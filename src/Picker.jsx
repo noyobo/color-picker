@@ -29,7 +29,6 @@ class Picker extends React.Component {
       'toggleClassName',
       'toggle',
       '_onChange',
-      '_onRender',
       '_onHueChange',
       '_onHexChange',
       '_onAlphaChange',
@@ -66,12 +65,6 @@ class Picker extends React.Component {
     if (typeof this.props.onChange === 'function') {
       this.props.onChange(colorsObj);
     }
-  }
-
-  _onRender(colorsObj) {
-    this.setState({
-      colorsObj
-    });
   }
 
   _onHueChange(hue) {
@@ -151,7 +144,6 @@ class Picker extends React.Component {
             hue={this.state.hue}
             defaultColor={this.state.defaultColor}
             onChange={this._onChange}
-            onRender={this._onRender}
           />
           <div className={this.prefixClsFn('wrap')}>
             <div className={this.prefixClsFn('wrap-ribbon')}>
