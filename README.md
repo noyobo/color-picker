@@ -1,6 +1,8 @@
 # rc-color-picker
 ---
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/noyobo/color-picker.svg)](https://greenkeeper.io/)
+
 color-picker ui component for react
 
 [![NPM version][npm-image]][npm-url]
